@@ -14,11 +14,17 @@ I started with the idea to change up the requirement for falling dots to be risi
 - [x] Jul 22: Working prototype in CodePen.io
 - [x] Jul 23: Started project-log.md (thi file) in GitHub
 - [x] Sun Jul 25: define project schedule
-- [ ] Sun Jul 25: define game & level completion criteria
-- [ ] Mon Jul 26: Pick fonts & color scheme
+- [x] Sun Jul 25: define game & level completion criteria
 - [ ] Mon Jul 26: finalize wireframes
 - [ ] Mon Jul 26: Plan & schedule code tasks
-- [ ] Tue Jul 27: Begin coding
-- [ ] Tue Jul 28: Finish working prototype
-- [ ] Wed Jul 29 - Fri Jul 30: polish
-- [ ] Sat Jul 30 - Sun Aug 1: icing on the top
+- [ ] Mon Jul 26: Begin coding
+- [ ] Tue Jul 27: Finish working prototype
+- [ ] Wed Jul 28: test
+- [ ] Wed Jul 28: fix bugs
+- [ ] Thu Jul 29: fix bugs
+- [ ] Thu Jul 29: Pick fonts & color scheme
+- [ ] Fri Jul 30: polish
+- [ ] Sat Jul 31: polish
+- [ ] Sun Aug 1: polish 
+- [ ] Sun Aug 1: final testing & fixes
+- [ ] Mon Aug 2: turn in 
