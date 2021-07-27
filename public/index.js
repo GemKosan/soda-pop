@@ -3,7 +3,7 @@ import lyrics from "./lyrics.js";
 const playableWidth = 375;
 const playableHeight = 667;
 const bubblePadding = 15;
-const bubbleDelayMs = 300;
+const bubbleDelayMs = 800;
 const floatPxPerSec = 100;
 const bubbleFontFamily = "helvetica";
 const bubbleFontSize = "18px";
@@ -44,7 +44,6 @@ function renderBubble(text, container) {
 
   bubble.setAttribute("style", bubbleAnimationStyles);
   bubble.addEventListener("transitionend", function({ target }) {
-    console.log(target.innerText);
     this.remove();
   });
   bubble.addEventListener("mousedown", function({ target }) {
