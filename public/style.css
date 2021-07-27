@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 #playable-area {
   position: relative;
   width: 100%;
