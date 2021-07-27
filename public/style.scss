@@ -1,0 +1,23 @@
+#playable-area {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: darkblue;
+}
+
+.bubble {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px white;
+  border-radius: 50%;
+  background: lightblue;
+  opacity: 90%;
+}
+
+.text {
+  width: auto;
+  height: auto;
+  display: inline-block;
+}
