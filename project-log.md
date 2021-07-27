@@ -15,9 +15,9 @@ I started with the idea to change up the requirement for falling dots to be risi
 - [x] Jul 23: Started project-log.md (thi file) in GitHub
 - [x] Sun Jul 25: define project schedule
 - [x] Sun Jul 25: define game & level completion criteria
-- [ ] Mon Jul 26: finalize wireframes
-- [ ] Mon Jul 26: Plan & schedule code tasks
-- [ ] Mon Jul 26: Begin coding
+- [x] Mon Jul 26: finalize wireframes
+- [x] Mon Jul 26: Plan & schedule code tasks
+- [x] Mon Jul 26: Begin coding
 - [ ] Tue Jul 27: Finish working prototype
 - [ ] Wed Jul 28: test
 - [ ] Wed Jul 28: fix bugs
