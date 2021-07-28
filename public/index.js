@@ -6,7 +6,7 @@ const bubbleDelayMs = 400;
 const floatPxPerSec = 100;
 const maxBubbleScore = 10;
 
-class GameTimer {
+class Bubbler {
 	constructor(callback, delay) {
 		this.callback = callback;
 		this.delay = delay;
@@ -23,7 +23,7 @@ class GameTimer {
 	resume() {
 		this.clear();
 		this.timer = setInterval(this.callback, this.delay);
-    this.callback();
+		this.callback();
 	}
 }
 
@@ -70,32 +70,27 @@ function scoreBubble({ currentTarget }) {
 	points *= floatPxPerSec;
 	score += points;
 	renderScore(score);
-	console.log(`POP! - ${currentTarget.innerText} - ${points} points`);
+	console.log(`Popped ${currentTarget.innerText}: ${points} points`);
 	currentTarget.remove();
 }
 
 function setState(newState) {
+  console.log(`Game state: ${newState}`);
 	switch (newState) {
 		case State.DEMO:
-			console.log("DEMO");
+			
 			break;
 		case State.PLAYING:
-			console.log("PLAYING");
-			console.log(game);
-      game.resume();
+			bubbleGenerator.resume();
 			break;
 		case State.PAUSED:
-			console.log("PAUSED");
-      game.pause();
+			bubbleGenerator.pause();
 			break;
 		case State.LEVEL_COMPLETE:
-			console.log("LEVEL_COMPLETE");
 			break;
 		case State.GAME_OVER:
-			console.log("GAME_OVER");
 			break;
 		default:
-			console.log(`ERROR: Unknown state ${newState}`);
 	}
 	state = newState;
 }
@@ -104,7 +99,7 @@ function handlePlayPause() {
 	state == State.PLAYING ? setState(State.PAUSED) : setState(State.PLAYING);
 }
 
-function resumeGame() {
+function resumegame() {
 	while (!words[currentWord] && currentWord < numWords) {
 		currentWord++;
 	}
@@ -112,7 +107,7 @@ function resumeGame() {
 		renderBubble(words[currentWord], playableArea);
 		currentWord++;
 		if (currentWord >= numWords) {
-			game.clear();
+			bubbleGenerator.clear();
 			setState(State.LEVEL_COMPLETE);
 		}
 	}
@@ -122,16 +117,16 @@ function resumeGame() {
 
 let state;
 let score;
+let currentWord = 0;
 const playableArea = document.getElementById("playable-area");
 const scoreElement = document.getElementById("score-value");
-document.getElementById("start-btn").addEventListener('click', handlePlayPause);
+document.getElementById("start-btn").addEventListener("click", handlePlayPause);
 const playableHeight = playableArea.clientHeight;
 const floatTransitionSecs = playableHeight / floatPxPerSec;
 const bubbleStartY = playableHeight;
 const words = stripPunctuation(lyrics).split(/\s/);
 const numWords = words.length;
-let currentWord = 0;
-const game = new GameTimer(resumeGame, bubbleDelayMs);
+const bubbleGenerator = new Bubbler(resumegame, bubbleDelayMs);
 
 renderScore(0);
 setState(State.DEMO);
