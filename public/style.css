@@ -14,16 +14,23 @@ html, body {
   margin: 0 auto;
   box-sizing: border-box;
   border: solid 2px black;
-  background-color: white;
-  padding: 15px 30px;
+  border-radius: 10px;
+  background-color: magenta;
+  padding: 15px 20px;
+}
+
+#main {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 #playable-area {
-  flex: 1 1 auto;
   position: relative;
-  margin: 0 auto;
-  width: 100%;
-  height: 300px;
+  width: 75%;
+  height: 100%;
+  border-radius: 10px;
   overflow: hidden;
   background: darkblue;
 }
@@ -33,6 +40,7 @@ html, body {
   flex: 0 0 auto;
   flex-direction: column;
   align-items: stretch;
+  margin-bottom: 20px;
 }
 
 #header .row {
@@ -61,19 +69,16 @@ html, body {
 #score {
   font-size: 24px;
   font-weight: bolder;
-  margin: 15px 0;
+  margin-top: 10px;
 }
 
 .progress-bar {
   position: relative;
   width: 80%;
-  height: 1.25em;
   border: solid 1px black;
-  display: flex;
-  align-items: center;
-  margin-top: 25px;
   border-radius: 10px;
   overflow: hidden;
+  background-color: white;
 }
 
 #health {
@@ -89,8 +94,14 @@ html, body {
   position: relative;
   left: 0;
   top: 0;
+  width: 100%;
   height: 100%;
-  margin: 0 auto;
+  text-align: center;
+}
+
+#start-btn {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .button {
@@ -125,8 +136,8 @@ html, body {
   align-items: center;
   border: solid 1px white;
   border-radius: 50%;
-  background: lightblue;
-  opacity: 90%;
+  background: white;
+  opacity: 95%;
 }
 
 .bubble-text {
