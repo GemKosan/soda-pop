@@ -1,7 +1,9 @@
 html, body {
   height: 100%;
   margin: 0;
-  background-color: magenta;
+  background-color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
 }
 
 #game {
@@ -12,30 +14,32 @@ html, body {
   height: 100%;
   max-width: 320px;
   margin: 0 auto;
-  border: solid 2px aqua;
+  border: solid 2px black;
+  background-color: magenta;
 }
 
 #header {
   display: flex;
-  flex: 0 0 150px;
+  flex: 0 0 250px;
   flex-direction: column;
   align-items: stretch;
 }
 
 #header .row {
   display: flex;
-  flex: 0 0 50%;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  /* border: solid 1px lightgray; */
 }
 
 #header .col {
   display: flex;
   flex: 0 0 50%;
+  flex-direction: column;
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
+  /* border: solid 1px lightgray; */
 }
 
 #logo {
@@ -46,8 +50,38 @@ html, body {
 }
 
 #score {
+  display: flex;
+  align-items: center;
   font-size: 60px;
   font-weight: bolder;
+  margin: 15px 0;
+}
+
+.progress-bar {
+  position: relative;
+  width: 150px;
+  height: 1.25em;
+  border: solid 1px black;
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+}
+
+#health {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 80%;
+  background-color: #00ffff;
+}
+
+#health-label {
+  position: relative;
+  left: 0;
+  top: 0;
+  height: 100%;
+  margin: 0 auto;
 }
 
 .button {
@@ -56,11 +90,13 @@ html, body {
   align-items: center;
   background-color: #7df9ff;
   border: black;
-  width: 80%;
+  width: 150px;
   height: 50px;
   border-radius: 10px;
   box-shadow: 0 3px 2px #999;
   cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
 }
 
 .button:hover {

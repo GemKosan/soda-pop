@@ -10,14 +10,18 @@
     <div id="header">
       <div class="row">
         <div id="logo" class="col">
-          <img alt="Soda Pop!" src="https://via.placeholder.com/140x60.png/00ffff?text=Soda+Pop!" />
+          <img alt="Soda Pop!" src="https://via.placeholder.com/140x140.png/00ffff?text=Soda+Pop!" />
         </div>
-        <div id="pause" class="col">
+        <div id="pause" class="col row">
           <button class="button">Start</button>
+          <div  class="progress-bar">
+            <div id="health"></div>
+            <span id="health-label">Health</span>
+          </div>
         </div>
       </div>
-      <div id="score" class="row">
-        0001234
+      <div class="row">
+        <span id="score">0001234</span>
       </div>
     </div>
     <div id="playable-area"></div>
