@@ -9,21 +9,21 @@ html, body {
 #game {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  box-sizing: border-box;
-  max-height: 568px;
-  max-width: 320px;
+  height: 568px;
+  width: 320px;
   margin: 0 auto;
+  box-sizing: border-box;
   border: solid 2px black;
-  background-color: magenta;
+  background-color: white;
+  padding: 15px 30px;
 }
 
 #playable-area {
   flex: 1 1 auto;
   position: relative;
   margin: 0 auto;
-  width: 280px;
-  height: 420px;
+  width: 100%;
+  height: 300px;
   overflow: hidden;
   background: darkblue;
 }
@@ -38,30 +38,27 @@ html, body {
 #header .row {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   /* border: solid 1px lightgray; */
 }
 
-#header .col {
+#header .right-col {
   display: flex;
-  flex: 0 0 50%;
+  flex: 1 0 auto;
   flex-direction: column;
   box-sizing: border-box;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-end;
   /* border: solid 1px lightgray; */
 }
 
 #logo {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  border-radius: 10px;
+  width: 120px;
+  height: 80px;
 }
 
 #score {
-  display: flex;
-  align-items: center;
   font-size: 24px;
   font-weight: bolder;
   margin: 15px 0;
@@ -69,12 +66,14 @@ html, body {
 
 .progress-bar {
   position: relative;
-  width: 150px;
+  width: 80%;
   height: 1.25em;
   border: solid 1px black;
   display: flex;
   align-items: center;
   margin-top: 25px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 #health {
@@ -100,7 +99,7 @@ html, body {
   align-items: center;
   background-color: #7df9ff;
   border: black;
-  width: 150px;
+  width: 80%;
   height: 50px;
   border-radius: 10px;
   box-shadow: 0 3px 2px #999;

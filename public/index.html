@@ -7,12 +7,10 @@
 </head>
 <body>
   <div id="game">
-    <div id="header">
+    <div id="header" class="row">
       <div class="row">
-        <div id="logo" class="col">
-          <img alt="Soda Pop!" src="https://via.placeholder.com/100x100.png/00ffff?text=Soda+Pop!" />
-        </div>
-        <div id="pause" class="col row">
+        <img id="logo" alt="Soda Pop!" src="https://via.placeholder.com/120x80.png/00ffff?text=Soda+Pop!" />
+        <div id="pause" class="right-col">
           <button class="button">Start</button>
           <div  class="progress-bar">
             <div id="health"></div>
@@ -20,8 +18,8 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <span id="score">0001234</span>
+      <div id="score" class="row">
+        <span>Score</span><span>0000123456</span>
       </div>
     </div>
     <div id="playable-area"></div>
