@@ -6,6 +6,11 @@ html, body {
   font-size: 12px;
 }
 
+body {
+  display: flex;
+  align-items: center;
+}
+
 #game {
   display: flex;
   flex-direction: column;
