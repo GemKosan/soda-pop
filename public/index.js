@@ -11,6 +11,10 @@ function stripPunctuation(text) {
   return text.replace(punctuation, "");
 }
 
+function renderScore(score) {
+  scoreElement.innerText = String(score).padStart(10, "0");
+}
+
 function renderBubble(text, container) {
   let bubble = document.createElement("div");
   let textSpan = document.createElement("span");
@@ -41,7 +45,9 @@ function renderBubble(text, container) {
 
 function scoreBubble({currentTarget}) {
   let points = maxBubbleScore - currentTarget.innerText.length + 1;
-  points = points > 0 ? points : 1; 
+  points = points > 0 ? points : 1;
+  score += points;
+  renderScore(score);
   console.log(`POP! - ${currentTarget.innerText} - ${points} points`);
   currentTarget.remove();
 }
@@ -55,6 +61,8 @@ const floatTransitionSecs = playableHeight / floatPxPerSec;
 const bubbleStartY = playableHeight;
 const words = stripPunctuation(lyrics).split(/\s/);
 const numBubbles = words.length;
+let score = 0;
+renderScore(0);
 
 let i = 0;
 const timer = setInterval(function() {
