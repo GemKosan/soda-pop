@@ -7,6 +7,7 @@ I started with the idea to change up the requirement for falling dots to be risi
 ## Notes
 - 10 px (in the requirements README) is way too small for a mobile tap target, so I'm ignoring that.
 - Added meta viewport tag to normalize pixel height, width, and zoom across different mobile devices and orientations.
+- Multiplying bubble score by its scroll speed in pixels per second.
 
 ## Timeline
 - [x] Jul 21: Started feature prioritization doc in GitHub Projects
@@ -19,7 +20,7 @@ I started with the idea to change up the requirement for falling dots to be risi
 - [x] Mon Jul 26: Plan & schedule code tasks
 - [x] Mon Jul 26: Begin coding
 - [x] Tue Jul 27: Export project from Glitch to GitHub & work locally
-- [ ] Tue Jul 27: Finish working prototype
+- [ ] Tue Jul 28: Complete fully-functional prototype
 - [ ] Wed Jul 28: test
 - [ ] Wed Jul 28: fix bugs
 - [ ] Thu Jul 29: fix bugs

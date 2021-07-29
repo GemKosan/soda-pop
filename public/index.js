@@ -51,14 +51,16 @@ function renderBubble(text, container) {
 	const maxX = containerWidth - bubbleDiameter;
 	const randomX = Math.random() * maxX;
 	const bubbleAnimationStyles = `
-    transition: top ${floatTransitionSecs}s cubic-bezier(0, 0, 1, 1);
+    animation-name: rise;
+    animation-duration: ${floatTransitionSecs}s;
+    animation-timing-function: linear;
     width: ${bubbleDiameter}px;
     height: ${bubbleDiameter}px; 
-    left: ${randomX}px;
-    top: -${bubbleDiameter - 1}px`;
+    left: ${randomX}px;`;
 
 	bubble.setAttribute("style", bubbleAnimationStyles);
-	bubble.addEventListener("transitionend", function ({ target }) {
+  
+	bubble.addEventListener("animationend", function ({ target }) {
 		this.remove();
 	});
 	bubble.addEventListener("mousedown", (e) => scoreBubble(e));
@@ -70,7 +72,7 @@ function scoreBubble({ currentTarget }) {
 	points *= floatPxPerSec;
 	score += points;
 	renderScore(score);
-	console.log(`Popped ${currentTarget.innerText}: ${points} points`);
+	console.log(`Popped "${currentTarget.innerText}": ${points} points`);
 	currentTarget.remove();
 }
 
@@ -78,13 +80,14 @@ function setState(newState) {
   console.log(`Game state: ${newState}`);
 	switch (newState) {
 		case State.DEMO:
-			
 			break;
 		case State.PLAYING:
 			bubbleGenerator.resume();
+      bubblePause.remove();
 			break;
 		case State.PAUSED:
 			bubbleGenerator.pause();
+      document.head.append(bubblePause);
 			break;
 		case State.LEVEL_COMPLETE:
 			break;
@@ -116,17 +119,20 @@ function resumegame() {
 /********** Main **********/
 
 let state;
-let score;
+let score = 0;
 let currentWord = 0;
 const playableArea = document.getElementById("playable-area");
 const scoreElement = document.getElementById("score-value");
-document.getElementById("start-btn").addEventListener("click", handlePlayPause);
 const playableHeight = playableArea.clientHeight;
 const floatTransitionSecs = playableHeight / floatPxPerSec;
 const bubbleStartY = playableHeight;
 const words = stripPunctuation(lyrics).split(/\s/);
 const numWords = words.length;
 const bubbleGenerator = new Bubbler(resumegame, bubbleDelayMs);
+const bubblePause = document.createElement("style");
+bubblePause.setAttribute("type", "text/css")
+bubblePause.innerText = "#game {animation-play-state: paused;}";
+document.getElementById("start-btn").addEventListener("click", handlePlayPause);
 
 renderScore(0);
 setState(State.DEMO);

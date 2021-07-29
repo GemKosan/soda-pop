@@ -11,6 +11,10 @@ body {
   align-items: center;
 }
 
+div { 
+  animation-play-state: inherit;
+}
+
 #game {
   display: flex;
   flex-direction: column;
@@ -145,6 +149,15 @@ body {
   border-radius: 50%;
   background: white;
   opacity: 95%;
+}
+
+@keyframes rise {
+  from {
+    top: 400px;
+  }
+  to {
+    top: 0px;
+  }
 }
 
 .bubble-text {
