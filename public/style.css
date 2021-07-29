@@ -45,19 +45,6 @@ div {
   background: darkblue;
 }
 
-#modal {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  z-index: 99;
-  width: 300px;
-  height: 200px;
-  border: solid 2px black;
-  border-radius: 10px;
-  box-shadow: 0 5px 10px black;
-  background-color: white;
-}
-
 #header {
   display: flex;
   flex: 0 0 auto;
@@ -77,6 +64,7 @@ div {
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
+  height: 120px;
   box-sizing: border-box;
   justify-content: space-between;
   align-items: flex-end;
@@ -85,19 +73,19 @@ div {
 
 #logo {
   border-radius: 10px;
-  width: 120px;
-  height: 80px;
+  max-width: 130px;
+  max-height: 120px;
 }
 
 #score {
-  font-size: 24px;
+  font-size: 26px;
+  line-height: 20px; /* align text to baseline */
   font-weight: bolder;
-  margin-top: 10px;
 }
 
 .progress-bar {
   position: relative;
-  width: 80%;
+  width: 130px;
   border: solid 1px black;
   border-radius: 10px;
   overflow: hidden;
@@ -110,7 +98,7 @@ div {
   top: 0;
   height: 100%;
   width: 80%;
-  background-color: #00ffff;
+  background-color: red;
 }
 
 #health-label {
@@ -129,7 +117,7 @@ button {
   background-color: #7df9ff;
   border: solid 1px gray;
   width: 130px;
-  height: 50px;
+  height: 40px;
   border-radius: 10px;
   box-shadow: 0 3px 2px #999;
   cursor: pointer;
@@ -196,4 +184,21 @@ button {
   width: auto;
   height: auto;
   display: inline-block;
+}
+
+.modal {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 99;
+  width: 276px;
+  height: 180px;
+  border: solid 2px black;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px black;
+  background-color: white;
+}
+
+.hidden {
+  display: none;
 }

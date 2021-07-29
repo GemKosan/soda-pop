@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 <body>
-  <div id="modal">
+  <div id="modal" class="modal hidden">
     <div><h1 class="title">Game Paused</h1></div>
     <div class="button-container">
       <button id="restart-btn">Restart</button>
@@ -18,17 +18,15 @@
   <div id="game">
     <div id="header" class="row">
       <div class="row">
-        <img id="logo" alt="Soda Pop!" src="https://via.placeholder.com/120x80.png/00ffff?text=Soda+Pop!" />
+        <img id="logo" alt="Soda Pop!" src="https://via.placeholder.com/140x100.png/00ffff?text=Soda+Pop!" />
         <div class="right-col">
           <button id="start-btn">Start</button>
           <div  class="progress-bar">
             <div id="health"></div>
             <div id="health-label">Health</div>
           </div>
+          <div id="score">000000000</div>
         </div>
-      </div>
-      <div id="score" class="row">
-        <span></span><span id="score-value">0000000000</span>
       </div>
     </div>
     <div id="main">

@@ -33,7 +33,7 @@ function stripPunctuation(text) {
 }
 
 function renderScore(score) {
-	scoreElement.innerText = String(score).padStart(10, "0");
+	scoreElement.innerText = String(score).padStart(9, "0");
 }
 
 function renderBubble(text, container) {
@@ -84,10 +84,12 @@ function setState(newState) {
 		case State.PLAYING:
 			bubbleGenerator.resume();
       bubblePause.remove();
+      modal.classList.add("hidden");
 			break;
 		case State.PAUSED:
 			bubbleGenerator.pause();
       document.head.append(bubblePause);
+      modal.classList.remove("hidden");
 			break;
 		case State.LEVEL_COMPLETE:
 			break;
@@ -122,7 +124,8 @@ let state;
 let score = 0;
 let currentWord = 0;
 const playableArea = document.getElementById("playable-area");
-const scoreElement = document.getElementById("score-value");
+const scoreElement = document.getElementById("score");
+const modal = document.getElementById("modal");
 const playableHeight = playableArea.clientHeight;
 const floatTransitionSecs = playableHeight / floatPxPerSec;
 const bubbleStartY = playableHeight;
