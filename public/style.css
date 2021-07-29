@@ -9,6 +9,7 @@ html, body {
 body {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 div { 
@@ -42,6 +43,19 @@ div {
   border-radius: 10px;
   overflow: hidden;
   background: darkblue;
+}
+
+#modal {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 99;
+  width: 300px;
+  height: 200px;
+  border: solid 2px black;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px black;
+  background-color: white;
 }
 
 #header {
@@ -108,24 +122,42 @@ div {
   text-align: center;
 }
 
-#start-btn {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.button {
+button {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #7df9ff;
   border: solid 1px gray;
-  width: 80%;
+  width: 130px;
   height: 50px;
   border-radius: 10px;
   box-shadow: 0 3px 2px #999;
   cursor: pointer;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  margin-bottom: 20px;
+}
+
+#play-again-btn {
+  display: none;
+}
+
+#next-level-btn {
+  display: none;
+}
+
+.title {
+  font-size: 2.5em;
+  text-align: center;
 }
 
 .button:hover {

@@ -6,12 +6,21 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 <body>
+  <div id="modal">
+    <div><h1 class="title">Game Paused</h1></div>
+    <div class="button-container">
+      <button id="restart-btn">Restart</button>
+      <button id="play-again-btn">Play Again</button>
+      <button id="next-level-btn">Next Level</button>
+      <button id="quit-btn">Quit</button>
+    </div>
+  </div>
   <div id="game">
     <div id="header" class="row">
       <div class="row">
         <img id="logo" alt="Soda Pop!" src="https://via.placeholder.com/120x80.png/00ffff?text=Soda+Pop!" />
         <div class="right-col">
-          <button id="start-btn" class="button">Start</button>
+          <button id="start-btn">Start</button>
           <div  class="progress-bar">
             <div id="health"></div>
             <div id="health-label">Health</div>
@@ -19,7 +28,7 @@
         </div>
       </div>
       <div id="score" class="row">
-        <span>Score</span><span id="score-value">0000000000</span>
+        <span></span><span id="score-value">0000000000</span>
       </div>
     </div>
     <div id="main">
