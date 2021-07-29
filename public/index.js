@@ -5,6 +5,7 @@ const bubblePadding = 15;
 const bubbleDelayMs = 400;
 const floatPxPerSec = 100;
 const maxBubbleScore = 10;
+const bubbleDamage = 10;
 
 class Bubbler {
 	constructor(callback, delay) {
@@ -32,7 +33,11 @@ function stripPunctuation(text) {
 	return text.replace(punctuation, "");
 }
 
-function renderScore(score) {
+function renderHealth() {
+	healthElement.setAttribute("style", `width: ${health}%;`);
+}
+
+function renderScore() {
 	scoreElement.innerText = String(score).padStart(9, "0");
 }
 
@@ -60,10 +65,8 @@ function renderBubble(text, container) {
 
 	bubble.setAttribute("style", bubbleAnimationStyles);
   
-	bubble.addEventListener("animationend", function ({ target }) {
-		this.remove();
-	});
-	bubble.addEventListener("mousedown", (e) => scoreBubble(e));
+	bubble.addEventListener("animationend", removeBubble);
+	bubble.addEventListener("mousedown", scoreBubble);
 }
 
 function scoreBubble({ currentTarget }) {
@@ -71,9 +74,20 @@ function scoreBubble({ currentTarget }) {
 	points = points > 0 ? points : 1;
 	points *= floatPxPerSec;
 	score += points;
-	renderScore(score);
+	renderScore();
 	console.log(`Popped "${currentTarget.innerText}": ${points} points`);
 	currentTarget.remove();
+}
+
+function removeBubble({currentTarget}) {
+  currentTarget.remove();
+  let newHealth = health - bubbleDamage;
+  if (newHealth <= 0) {
+    newHealth = 0
+    setState(State.GAME_OVER);
+  }
+  health = newHealth;
+  renderHealth();
 }
 
 function setState(newState) {
@@ -92,13 +106,14 @@ function setState(newState) {
 		case State.PAUSED:
 			bubbleGenerator.pause();
       document.head.append(bubblePause);
-      modal.classList.remove("hidden");
+      // modal.classList.remove("hidden");
       playButton.classList.remove("hidden");
       pauseButton.classList.add("hidden");
 			break;
 		case State.LEVEL_COMPLETE:
 			break;
 		case State.GAME_OVER:
+      // modal.classList.remove("hidden");
 			break;
 		default:
 	}
@@ -127,11 +142,13 @@ function resumegame() {
 
 let state;
 let score = 0;
+let health = 100;
 let currentWord = 0;
 const playButton = document.getElementById("play-btn");
 const pauseButton = document.getElementById("pause-btn");
 const startButton = document.getElementById("start-btn");
 const playableArea = document.getElementById("playable-area");
+const healthElement = document.getElementById("health");
 const scoreElement = document.getElementById("score");
 const modal = document.getElementById("modal");
 const playableHeight = playableArea.clientHeight;
@@ -147,5 +164,5 @@ document.getElementById("start-btn").addEventListener("click", handlePlayPause);
 document.getElementById("play-btn").addEventListener("click", handlePlayPause);
 document.getElementById("pause-btn").addEventListener("click", handlePlayPause);
 
-renderScore(0);
+renderScore();
 setState(State.DEMO);
