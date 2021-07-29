@@ -10,59 +10,59 @@ const bubbleDamage = 10;
 class Modal {
 	constructor(element) {
 		this.element = element;
-    this.title = this.element.querySelector(".title");
-    this.restartButton = this.element.querySelector(".restart-btn");
-    this.restartButton.addEventListener("click", handlePlayPause);
-    this.playAgainButton = this.element.querySelector(".play-again-btn");
-    this.restartButton.addEventListener("click", handlePlayPause);
-    this.nextLevelButton = this.element.querySelector(".next-level-btn");
-    this.quitButton = this.element.querySelector(".quit-btn");
+		this.title = this.element.querySelector(".title");
+		this.restartButton = this.element.querySelector(".restart-btn");
+		this.restartButton.addEventListener("click", () => setState(State.PLAYING));
+		this.playAgainButton = this.element.querySelector(".play-again-btn");
+		this.restartButton.addEventListener("click", () => setState(State.PLAYING));
+		this.nextLevelButton = this.element.querySelector(".next-level-btn");
+		this.quitButton = this.element.querySelector(".quit-btn");
 	}
 
 	setState(state) {
 		switch (state) {
 			case State.PLAYING:
 				this.title.innerText = "Playing";
-        this.element.classList.add("hidden");
+				this.element.classList.add("hidden");
 				break;
 			case State.PAUSED:
 				this.title.innerText = "Paused";
-        this.restartButton.classList.remove("hidden");
-        this.playAgainButton.classList.add("hidden");
-        this.nextLevelButton.classList.add("hidden");
-        this.quitButton.classList.remove("hidden");
-        this.element.classList.remove("hidden");
+				this.restartButton.classList.remove("hidden");
+				this.playAgainButton.classList.add("hidden");
+				this.nextLevelButton.classList.add("hidden");
+				this.quitButton.classList.remove("hidden");
+				this.element.classList.remove("hidden");
 				break;
 			case State.LEVEL_COMPLETE:
 				this.title.innerText = "Level Complete!";
-        this.restartButton.classList.add("hidden");
-        this.playAgainButton.classList.add("hidden");
-        this.nextLevelButton.classList.remove("hidden");
-        this.quitButton.classList.add("hidden");
-        this.element.classList.remove("hidden");
+				this.restartButton.classList.add("hidden");
+				this.playAgainButton.classList.add("hidden");
+				this.nextLevelButton.classList.remove("hidden");
+				this.quitButton.classList.add("hidden");
+				this.element.classList.remove("hidden");
 				break;
 			case State.GAME_OVER:
 				this.title.innerText = "Game Over";
-        this.restartButton.classList.add("hidden");
-        this.playAgainButton.classList.remove("hidden");
-        this.nextLevelButton.classList.add("hidden");
-        this.quitButton.classList.remove("hidden");
-        this.element.classList.remove("hidden");
+				this.restartButton.classList.add("hidden");
+				this.playAgainButton.classList.remove("hidden");
+				this.nextLevelButton.classList.add("hidden");
+				this.quitButton.classList.remove("hidden");
+				this.element.classList.remove("hidden");
 				break;
 			case State.DEMO:
 				this.title.innerText = "Demo";
-        this.element.classList.add("hidden");
+				this.element.classList.add("hidden");
 				break;
-        default:
-          console.log(`Error: invalid state ${newState} `);
+			default:
+				console.log(`Error: invalid state ${newState} `);
 		}
 	}
 }
 
 class Bubbler {
-	constructor(callback, delay) {
-		this.callback = callback;
-		this.delay = delay;
+	constructor(text) {
+		this.currentWord = 0;
+		this.words = this.stripPunctuation(lyrics).split(/\s/);
 	}
 
 	clear() {
@@ -73,16 +73,55 @@ class Bubbler {
 		this.clear();
 	}
 
-	generate() {
+	start(delay) {
 		this.clear();
-		this.timer = setInterval(this.callback, this.delay);
-		this.callback();
+		this.timer = setInterval(() => {
+			while (!this.words[this.currentWord] && this.currentWord < this.words.length) {
+				this.currentWord++;
+			}
+			if (this.words[this.currentWord]) {
+				this.renderBubble(this.words[this.currentWord], playableArea);
+				this.currentWord++;
+				if (this.currentWord >= this.words.length) {
+					this.clear();
+					setState(State.LEVEL_COMPLETE);
+				}
+			}
+		}, delay);
 	}
-}
 
-function stripPunctuation(text) {
-	var punctuation = /[^a-zA-Z'\-\s+]/g;
-	return text.replace(punctuation, "");
+	stripPunctuation(text) {
+		var punctuation = /[^a-zA-Z'\-\s+]/g;
+		return text.replace(punctuation, "");
+	}
+
+	renderBubble(text, container) {
+		let bubble = document.createElement("div");
+		let textSpan = document.createElement("span");
+		textSpan.className = "bubble-text";
+		textSpan.innerText = text;
+		bubble.className = "bubble";
+		bubble.setAttribute("style", `top: ${bubbleStartY}px;`);
+		bubble.append(textSpan);
+		container.append(bubble);
+
+		const bubbleDiameter = textSpan.clientWidth + bubblePadding;
+		const containerWidth = container.clientWidth;
+		const maxX = containerWidth - bubbleDiameter;
+		const randomX = Math.random() * maxX;
+		const bubbleAnimationStyles = `
+			animation-name: rise;
+			animation-duration: ${floatTransitionSecs}s;
+			animation-timing-function: linear;
+			width: ${bubbleDiameter}px;
+			height: ${bubbleDiameter}px; 
+			left: ${randomX}px;`;
+
+		bubble.setAttribute("style", bubbleAnimationStyles);
+
+		bubble.addEventListener("animationend", removeBubble);
+		bubble.addEventListener("mousedown", scoreBubble);
+	}
 }
 
 function renderHealth() {
@@ -91,34 +130,6 @@ function renderHealth() {
 
 function renderScore() {
 	scoreElement.innerText = String(score).padStart(9, "0");
-}
-
-function renderBubble(text, container) {
-	let bubble = document.createElement("div");
-	let textSpan = document.createElement("span");
-	textSpan.className = "bubble-text";
-	textSpan.innerText = text;
-	bubble.className = "bubble";
-	bubble.setAttribute("style", `top: ${bubbleStartY}px;`);
-	bubble.append(textSpan);
-	container.append(bubble);
-
-	const bubbleDiameter = textSpan.clientWidth + bubblePadding;
-	const containerWidth = container.clientWidth;
-	const maxX = containerWidth - bubbleDiameter;
-	const randomX = Math.random() * maxX;
-	const bubbleAnimationStyles = `
-    animation-name: rise;
-    animation-duration: ${floatTransitionSecs}s;
-    animation-timing-function: linear;
-    width: ${bubbleDiameter}px;
-    height: ${bubbleDiameter}px; 
-    left: ${randomX}px;`;
-
-	bubble.setAttribute("style", bubbleAnimationStyles);
-
-	bubble.addEventListener("animationend", removeBubble);
-	bubble.addEventListener("mousedown", scoreBubble);
 }
 
 function scoreBubble({ currentTarget }) {
@@ -145,62 +156,49 @@ function removeBubble({ currentTarget }) {
 function setState(newState) {
 	state = newState;
 	console.log(`Game state: ${newState}`);
+	modal.setState(newState);
 	switch (newState) {
 		case State.DEMO:
-      modal.setState(newState);
 			break;
 		case State.PLAYING:
-			bubbleGenerator.generate();
-			bubblePause.remove();
-			playButton.classList.add("hidden");
 			startButton.classList.add("hidden");
+			playButton.classList.add("hidden");
 			pauseButton.classList.remove("hidden");
-      modal.setState(newState);
+			bubblePause.remove();
+			bubbler.start(bubbleDelayMs);
 			break;
 		case State.PAUSED:
-			bubbleGenerator.pause();
-			document.head.append(bubblePause);
 			playButton.classList.remove("hidden");
 			pauseButton.classList.add("hidden");
-      modal.setState(newState);
+			document.head.append(bubblePause);	
+			bubbler.pause();
 			break;
 		case State.LEVEL_COMPLETE:
-      modal.setState(newState);
+			document.head.append(bubblePause);
+			bubbler.pause();
 			break;
 		case State.GAME_OVER:
-      modal.setState(newState);
+			document.head.append(bubblePause);
+			bubbler.pause();
 			break;
 		default:
-      console.log(`Error: invalid state ${newState} `);
+			console.log(`Error: invalid state ${newState} `);
 	}
 }
 
-function handlePlayPause() {
-	state == State.PLAYING ? setState(State.PAUSED) : setState(State.PLAYING);
+function loadLevel(level) {
+	bubbler = new Bubbler(lyrics);	
 }
 
-function bubble() {
-	while (!words[currentWord] && currentWord < numWords) {
-		currentWord++;
-	}
-	if (words[currentWord]) {
-    console.log(words[currentWord]);
-		renderBubble(words[currentWord], playableArea);
-		currentWord++;
-		if (currentWord >= numWords) {
-			bubbleGenerator.clear();
-			setState(State.LEVEL_COMPLETE);
-		}
-	}
-}
+
 
 /********** Main **********/
 
 let state;
 let score = 0;
+const startButton = document.getElementById("start-btn");
 const playButton = document.getElementById("play-btn");
 const pauseButton = document.getElementById("pause-btn");
-const startButton = document.getElementById("start-btn");
 const playableArea = document.getElementById("playable-area");
 const healthElement = document.getElementById("health");
 const scoreElement = document.getElementById("score");
@@ -210,17 +208,13 @@ const floatTransitionSecs = playableHeight / floatPxPerSec;
 const bubbleStartY = playableHeight;
 const modal = new Modal(modalElement);
 const bubblePause = document.createElement("style");
+let bubbler;
 bubblePause.setAttribute("type", "text/css");
 bubblePause.innerText = "#game {animation-play-state: paused;}";
-document.getElementById("start-btn").addEventListener("click", handlePlayPause);
-document.getElementById("play-btn").addEventListener("click", handlePlayPause);
-document.getElementById("pause-btn").addEventListener("click", handlePlayPause);
+startButton.addEventListener("click", () => setState(State.PLAYING));
+playButton.addEventListener("click", () => setState(State.PLAYING));
+pauseButton.addEventListener("click", () => setState(State.PAUSED));
 
 let health = 100;
-let currentWord = 0;
-const words = stripPunctuation(lyrics).split(/\s/);
-const numWords = words.length;
-let bubbleGenerator = new Bubbler(bubble, bubbleDelayMs);
-
-renderScore();
 setState(State.DEMO);
+loadLevel(1);
