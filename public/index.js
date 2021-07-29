@@ -85,11 +85,16 @@ function setState(newState) {
 			bubbleGenerator.resume();
       bubblePause.remove();
       modal.classList.add("hidden");
+      playButton.classList.add("hidden");
+      startButton.classList.add("hidden");
+      pauseButton.classList.remove("hidden");
 			break;
 		case State.PAUSED:
 			bubbleGenerator.pause();
       document.head.append(bubblePause);
       modal.classList.remove("hidden");
+      playButton.classList.remove("hidden");
+      pauseButton.classList.add("hidden");
 			break;
 		case State.LEVEL_COMPLETE:
 			break;
@@ -123,6 +128,9 @@ function resumegame() {
 let state;
 let score = 0;
 let currentWord = 0;
+const playButton = document.getElementById("play-btn");
+const pauseButton = document.getElementById("pause-btn");
+const startButton = document.getElementById("start-btn");
 const playableArea = document.getElementById("playable-area");
 const scoreElement = document.getElementById("score");
 const modal = document.getElementById("modal");
@@ -136,6 +144,8 @@ const bubblePause = document.createElement("style");
 bubblePause.setAttribute("type", "text/css")
 bubblePause.innerText = "#game {animation-play-state: paused;}";
 document.getElementById("start-btn").addEventListener("click", handlePlayPause);
+document.getElementById("play-btn").addEventListener("click", handlePlayPause);
+document.getElementById("pause-btn").addEventListener("click", handlePlayPause);
 
 renderScore(0);
 setState(State.DEMO);
