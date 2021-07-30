@@ -1,5 +1,6 @@
 import lyrics from "./lyrics.js";
 import * as State from "./state.js";
+import SoundBank, { Sound } from "./soundBank.js" ;
 
 const bubblePadding = 15;
 const bubbleDelayMs = 400;
@@ -152,6 +153,7 @@ class Bubbler {
 		points *= floatPxPerSec;
 		console.log(`Popped "${currentTarget.innerText}": ${points} points`);
 		setScore(score + points);
+		sounds.play(Sound.POP);
 		currentTarget.remove();
 	}
 	
@@ -247,6 +249,7 @@ const playableHeight = playableArea.clientHeight;
 const floatTransitionSecs = playableHeight / floatPxPerSec;
 const bubbleStartY = playableHeight;
 const modal = new ModalWindow(modalElement);
+const sounds = new SoundBank;
 const bubblePause = document.createElement("style");
 
 bubblePause.setAttribute("type", "text/css");
