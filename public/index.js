@@ -16,12 +16,14 @@ function setState(newState) {
 			startButton.classList.remove("hidden");
 			playButton.classList.add("hidden");
 			pauseButton.classList.add("hidden");
+			clickBlocker.classList.remove("hidden");
 			break;
 		case State.PLAYING:
 			modal.hide();
 			startButton.classList.add("hidden");
 			playButton.classList.add("hidden");
 			pauseButton.classList.remove("hidden");
+			clickBlocker.classList.add("hidden");
 			bubblePause.remove();
 			bubbler.start(bubbleDelayMs);
 			break;
@@ -29,11 +31,13 @@ function setState(newState) {
 			modal.show("Paused", [ModalWindow.RESTART, ModalWindow.QUIT]);
 			playButton.classList.remove("hidden");
 			pauseButton.classList.add("hidden");
+			clickBlocker.classList.remove("hidden");
 			document.head.append(bubblePause);
 			bubbler.stop();
 			break;
 		case State.LEVEL_COMPLETE:
 			modal.show("Level Complete!", [ModalWindow.NEXT_LEVEL]);
+			clickBlocker.classList.remove("hidden");
 			document.head.append(bubblePause);
 			bubbler.stop();
 			break;
@@ -41,6 +45,7 @@ function setState(newState) {
 			level++;
 			break;
 		case State.GAME_OVER:
+			clickBlocker.classList.remove("hidden");
 			modal.show("Game Over", [ModalWindow.PLAY_AGAIN, ModalWindow.QUIT]);
 			document.head.append(bubblePause);
 			bubbler.stop();
@@ -237,6 +242,7 @@ const playableArea = document.getElementById("playable-area");
 const healthElement = document.getElementById("health");
 const scoreElement = document.getElementById("score");
 const modalElement = document.getElementById("modal");
+const clickBlocker = playableArea.querySelector(".click-blocker");
 const playableHeight = playableArea.clientHeight;
 const floatTransitionSecs = playableHeight / floatPxPerSec;
 const bubbleStartY = playableHeight;
