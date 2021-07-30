@@ -1,207 +1,211 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  background-color: black;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
+html,
+body {
+	height: 100%;
+	margin: 0;
+	background-color: black;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
 }
 
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-div { 
-  animation-play-state: inherit;
+div {
+	animation-play-state: inherit;
 }
 
 #game {
-  display: flex;
-  flex-direction: column;
-  height: 568px;
-  width: 320px;
-  margin: 0 auto;
-  box-sizing: border-box;
-  border: solid 2px black;
-  border-radius: 10px;
-  background-color: magenta;
-  padding: 15px 20px;
+	display: flex;
+	flex-direction: column;
+	height: 568px;
+	width: 320px;
+	margin: 0 auto;
+	box-sizing: border-box;
+	border: solid 2px black;
+	border-radius: 10px;
+	background-color: magenta;
+	padding: 15px 20px;
 }
 
 #main {
-  display: flex;
-  flex: 1 1 auto;
-  justify-content: flex-end;
-  width: 100%;
+	display: flex;
+	flex: 1 1 auto;
+	justify-content: flex-end;
+	width: 100%;
 }
 
 #playable-area {
-  position: relative;
-  width: 75%;
-  height: 100%;
-  border-radius: 10px;
-  overflow: hidden;
-  background: darkblue;
+	position: relative;
+	width: 75%;
+	height: 100%;
+	border-radius: 10px;
+	overflow: hidden;
+	background: darkblue;
 }
 
 #header {
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  align-items: stretch;
-  margin-bottom: 20px;
+	display: flex;
+	flex: 0 0 auto;
+	flex-direction: column;
+	align-items: stretch;
+	margin-bottom: 20px;
 }
 
 #header .row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  /* border: solid 1px lightgray; */
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	/* border: solid 1px lightgray; */
 }
 
 #header .right-col {
-  display: flex;
-  flex: 1 0 auto;
-  flex-direction: column;
-  height: 120px;
-  box-sizing: border-box;
-  justify-content: space-between;
-  align-items: flex-end;
-  /* border: solid 1px lightgray; */
+	display: flex;
+	flex: 1 0 auto;
+	flex-direction: column;
+	height: 120px;
+	box-sizing: border-box;
+	justify-content: space-between;
+	align-items: flex-end;
+	/* border: solid 1px lightgray; */
 }
 
 #logo {
-  border-radius: 10px;
-  max-width: 130px;
-  max-height: 120px;
+	border-radius: 10px;
+	max-width: 154px;
+	position: relative;
+	left: -10px;
+	top: 0px;
 }
 
 #score {
-  font-size: 26px;
-  line-height: 20px; /* align text to baseline */
-  font-weight: bolder;
+	font-size: 26px;
+	line-height: 20px; /* align text to baseline */
+	font-weight: bolder;
 }
 
 .progress-bar {
-  position: relative;
-  width: 130px;
-  border: solid 1px black;
-  border-radius: 10px;
-  overflow: hidden;
-  background-color: red;
+	position: relative;
+	width: 130px;
+	border: solid 1px black;
+	border-radius: 10px;
+	overflow: hidden;
+	background-color: red;
 }
 
 #health {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  background-color: #7df9ff;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #7df9ff;
 }
 
 #health-label {
-  position: relative;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  font-size: 16px;
-  margin: 2px;
-  text-align: center;
+	position: relative;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	font-size: 16px;
+	margin: 2px;
+	text-align: center;
 }
 
 button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #7df9ff;
-  width: 130px;
-  height: 54px;
-  border: solid 1px gray;
-  border-radius: 10px;
-  box-shadow: 0 3px 2px #999;
-  cursor: pointer;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-  font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #7df9ff;
+	width: 130px;
+	height: 54px;
+	border: solid 1px gray;
+	border-radius: 10px;
+	box-shadow: 0 3px 2px #999;
+	cursor: pointer;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 .button-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	height: 100%;
+	margin-bottom: 20px;
 }
 
 #play-again-btn {
-  display: none;
+	display: none;
 }
 
 #next-level-btn {
-  display: none;
+	display: none;
 }
 
 .title {
-  font-size: 2.5em;
-  text-align: center;
-  text-transform: uppercase;
+	font-size: 2.5em;
+	text-align: center;
+	text-transform: uppercase;
 }
 
 .button:hover {
-  background-color: #00ffff;
+	background-color: #00ffff;
 }
 
 .button:active {
-  background-color: #00ffff;
-  box-shadow: 0 1px 2px #666;
-  transform: translateY(2px);
+	background-color: #00ffff;
+	box-shadow: 0 1px 2px #666;
+	transform: translateY(2px);
 }
 
 .bubble {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-size: 16px;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: solid 1px white;
-  border-radius: 50%;
-  background: white;
-  opacity: 95%;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
+		Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 16px;
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: solid 1px white;
+	border-radius: 50%;
+	background: white;
+	opacity: 95%;
 }
 
 @keyframes rise {
-  from {
-    top: 400px;
-  }
-  to {
-    top: 0px;
-  }
+	from {
+		top: 400px;
+	}
+	to {
+		top: 0px;
+	}
 }
 
 .bubble-text {
-  width: auto;
-  height: auto;
-  display: inline-block;
+	width: auto;
+	height: auto;
+	display: inline-block;
 }
 
 .modal {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  z-index: 99;
-  width: 276px;
-  height: 210px;
-  border: solid 2px black;
-  border-radius: 10px;
-  box-shadow: 0 5px 10px black;
-  background-color: white;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	z-index: 99;
+	width: 276px;
+	height: 210px;
+	border: solid 2px black;
+	border-radius: 10px;
+	box-shadow: 0 5px 10px black;
+	background-color: white;
 }
 
 .hidden {
-  display: none;
+	display: none;
 }
