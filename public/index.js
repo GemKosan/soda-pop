@@ -38,6 +38,7 @@ function setState(newState) {
 			break;
 		case State.LEVEL_COMPLETE:
 			modal.show("Level Complete!", [ModalWindow.NEXT_LEVEL]);
+			sounds.play(Sound.COMPLETE);
 			clickBlocker.classList.remove("hidden");
 			document.head.append(bubblePause);
 			bubbler.stop();
@@ -158,13 +159,14 @@ class Bubbler {
 	}
 	
 	removeBubble({ currentTarget }) {
-		currentTarget.remove();
 		let newHealth = health - bubbleDamage;
 		if (newHealth <= 0) {
 			newHealth = 0;
 			setState(State.GAME_OVER);
 		}
 		setHealth(newHealth);
+		sounds.play(Sound.MISS);
+		currentTarget.remove();
 	}
 
 	renderBubble(text) {
@@ -254,6 +256,12 @@ const bubblePause = document.createElement("style");
 
 bubblePause.setAttribute("type", "text/css");
 bubblePause.innerText = "#game {animation-play-state: paused;}";
+
+const allButtons = document.querySelectorAll("button");
+for (let button of allButtons) {
+	button.addEventListener("click", () => sounds.play(Sound.CLICK));
+}
+
 startButton.addEventListener("click", () => setState(State.PLAYING));
 playButton.addEventListener("click", () => setState(State.PLAYING));
 pauseButton.addEventListener("click", () => setState(State.PAUSED));
