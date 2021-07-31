@@ -18,9 +18,9 @@ class SoundBank {
 				new Audio('resources/complete.wav'),
 			],
 			miss: [
-				new Audio('resources/miss.wav'),
-				new Audio('resources/miss.wav'),
-				new Audio('resources/miss.wav'),
+				new Audio('resources/missed.wav'),
+				new Audio('resources/missed.wav'),
+				new Audio('resources/missed.wav'),
 			],
 			pop: [
 				new Audio('resources/pop1.wav'),
