@@ -184,6 +184,11 @@ button {
 	border-radius: 50%;
 	background: white;
 	opacity: 95%;
+  transition: transform 150ms linear;
+}
+
+.popped {
+  transform: scale(0.15);
 }
 
 @keyframes rise {
@@ -216,4 +221,8 @@ button {
 
 .hidden {
 	display: none;
+}
+
+.paused {
+  animation-play-state: paused;
 }

@@ -155,7 +155,9 @@ class Bubbler {
 		console.log(`Popped "${currentTarget.innerText}": ${points} points`);
 		setScore(score + points);
 		sounds.play(Sound.POP);
-		currentTarget.remove();
+		
+		currentTarget.addEventListener("transitionend", currentTarget.remove);
+		currentTarget.classList.add("paused", "popped");
 	}
 	
 	removeBubble({ currentTarget }) {
@@ -166,7 +168,8 @@ class Bubbler {
 		}
 		setHealth(newHealth);
 		sounds.play(Sound.MISS);
-		currentTarget.remove();
+		currentTarget.addEventListener("transitionend", currentTarget.remove);
+		currentTarget.classList.add("paused", "popped");
 	}
 
 	renderBubble(text) {
