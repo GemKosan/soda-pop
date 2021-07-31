@@ -238,6 +238,12 @@ function startGame() {
 
 /********** Main **********/
 
+const Timidity = require('timidity')
+
+const player = new Timidity()
+player.load('resources/Never-Gonna-Give-You-Up-3.midi')
+player.play()
+
 let score;
 let health;
 let state;
