@@ -54,7 +54,7 @@ function setState(newState) {
 			playButton.classList.add("hidden")
 			pauseButton.classList.remove("hidden")
 			clickBlocker.classList.add("hidden")
-			bubblePause.remove()
+			playableArea.classList.remove("paused")
 			bubbler.start(getBubbleDelay())
 			break
 		case State.PAUSED:
@@ -62,14 +62,14 @@ function setState(newState) {
 			playButton.classList.remove("hidden")
 			pauseButton.classList.add("hidden")
 			clickBlocker.classList.remove("hidden")
-			document.head.append(bubblePause)
+			playableArea.classList.add("paused")
 			bubbler.stop()
 			break
 		case State.LEVEL_COMPLETE:
 			modal.show("Level Complete!", [ModalWindow.NEXT_LEVEL])
 			sounds.play(Sound.COMPLETE)
 			clickBlocker.classList.remove("hidden")
-			document.head.append(bubblePause)
+			playableArea.classList.add("paused")
 			bubbler.stop()
 			break
 		case State.LEVEL_UP:
@@ -81,7 +81,7 @@ function setState(newState) {
 		case State.GAME_OVER:
 			clickBlocker.classList.remove("hidden")
 			modal.show("Game Over", [ModalWindow.PLAY_AGAIN, ModalWindow.QUIT])
-			document.head.append(bubblePause)
+			playableArea.classList.add("paused")
 			bubbler.stop()
 			break
 		case State.RESTART:
@@ -274,16 +274,11 @@ const scoreElement = document.getElementById("score")
 const modalElement = document.getElementById("modal")
 const levelNameElement = document.getElementById("level-name")
 const clickBlocker = playableArea.querySelector(".click-blocker")
+const allButtons = document.querySelectorAll("button")
 const playableHeight = playableArea.clientHeight
 const bubbleStartY = playableHeight
 const modal = new ModalWindow(modalElement)
 const sounds = new SoundBank()
-const bubblePause = document.createElement("style")
-
-bubblePause.setAttribute("type", "text/css")
-bubblePause.innerText = "#game {animation-play-state: paused;}"
-
-const allButtons = document.querySelectorAll("button")
 for (let button of allButtons) {
 	button.addEventListener("click", () => sounds.play(Sound.CLICK))
 }
