@@ -240,7 +240,7 @@ function setHealth(newHealth) {
 
 function setScore(newScore) {
 	score = newScore
-	scoreElement.innerText = String(newScore).padStart(9, "0")
+	scoreElement.innerText = String(newScore).padStart(15, "0")
 }
 
 function loadLevel() {

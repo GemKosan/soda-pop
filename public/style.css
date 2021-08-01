@@ -27,20 +27,22 @@ div {
 	border: solid 2px black;
 	border-radius: 10px;
 	background-color: magenta;
-	padding: 15px 20px;
+	padding: 15px 20px 10px 20px;
 }
 
 #main {
 	display: flex;
+	flex-direction: column;
 	flex: 1 1 auto;
-	justify-content: flex-end;
-	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 20px;
 }
 
 #playable-area {
 	position: relative;
-	width: 75%;
-	height: 100%;
+	width: 100%;
+	height: 330px;
 	border-radius: 10px;
 	overflow: hidden;
 	background: darkblue;
@@ -54,19 +56,25 @@ div {
   z-index: 10;
 }
 
+#logo {
+	border-radius: 10px;
+	max-width: 154px;
+	position: relative;
+	left: -10px;
+	top: 0px;
+}
+
 #header {
 	display: flex;
 	flex: 0 0 auto;
 	flex-direction: column;
 	align-items: stretch;
-	margin-bottom: 20px;
 }
 
 #header .row {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	/* border: solid 1px lightgray; */
 }
 
 #header .right-col {
@@ -77,15 +85,13 @@ div {
 	box-sizing: border-box;
 	justify-content: space-between;
 	align-items: flex-end;
-	/* border: solid 1px lightgray; */
 }
 
-#logo {
-	border-radius: 10px;
-	max-width: 154px;
-	position: relative;
-	left: -10px;
-	top: 0px;
+
+#level-name {
+	margin: 0 15px;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 #score {
@@ -96,11 +102,12 @@ div {
 
 .progress-bar {
 	position: relative;
-	width: 130px;
+	width: 100%;
+	height: 10px;
 	border: solid 1px black;
 	border-radius: 10px;
 	overflow: hidden;
-	background-color: red;
+	background-color: black;
 }
 
 #health {
@@ -109,18 +116,7 @@ div {
 	top: 0;
 	height: 100%;
 	width: 100%;
-	background-color: #7df9ff;
-}
-
-#health-label {
-	position: relative;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	font-size: 16px;
-	margin: 2px;
-	text-align: center;
+	background-color: red;
 }
 
 button {
