@@ -13,6 +13,10 @@ const baseBubbleDamage = 10
 const baseBubbleScore = 10
 const bubblePadding = 15
 
+function indexCurrentLevel() {
+	return (currentLevel % levels.length);
+}
+
 function getBubbleDelay() {
 	return baseBubbleDelayMs - (currentLevel * bubbleDelayStep)
 }
@@ -30,7 +34,7 @@ function getBubblePoints() {
 }
 
 function getLevelWords() {
-	return lyrics[currentLevel % levels.length]
+	return lyrics[indexCurrentLevel()]
 }
 
 function setState(newState) {
@@ -245,6 +249,7 @@ function setScore(newScore) {
 
 function loadLevel() {
 	console.log(`Bubble Settings: [delay: ${getBubbleDelay()}, speed: ${getBubbleSpeed()}, damage: ${getBubbleDamage()}, points: ${getBubblePoints()}]`)
+	levelNameElement.innerText = levels[indexCurrentLevel()]
 	if (bubbler) {
 		bubbler.stop()
 		bubbler.clear()
@@ -267,6 +272,7 @@ const playableArea = document.getElementById("playable-area")
 const healthElement = document.getElementById("health")
 const scoreElement = document.getElementById("score")
 const modalElement = document.getElementById("modal")
+const levelNameElement = document.getElementById("level-name")
 const clickBlocker = playableArea.querySelector(".click-blocker")
 const playableHeight = playableArea.clientHeight
 const bubbleStartY = playableHeight
