@@ -1,16 +1,41 @@
 import lyrics from "./lyrics.js";
 import * as State from "./state.js";
-import SoundBank, { Sound } from "./soundBank.js" ;
+import SoundBank, { Sound } from "./soundBank.js";
 
+let currentLevel = 0;
+const levels = ["Cola", "Lemon Lime", "Cherry Cola"];
+
+const baseBubbleDelayMs = 600;
+const bubbleDelayStep = 25;
+const baseBubbleSpeed = 60;
+const bubbleSpeedStep = 20;
+const baseBubbleDamage = 10;
+const baseBubbleScore = 10;
 const bubblePadding = 15;
-const bubbleDelayMs = 400;
-const floatPxPerSec = 100;
-const maxBubbleScore = 10;
-const bubbleDamage = 10;
+
+function getBubbleDelay() {
+	return baseBubbleDelayMs - (currentLevel * bubbleDelayStep);
+}
+
+function getBubbleSpeed() {
+	return baseBubbleSpeed + (currentLevel * bubbleSpeedStep);
+}
+
+function getBubbleDamage() {
+	return baseBubbleDamage;
+}
+
+function getBubblePoints() {
+	return baseBubbleScore * (currentLevel + 1);
+}
+
+function getLevelWords() {
+	return lyrics[currentLevel % levels.length];
+}
 
 function setState(newState) {
 	state = newState;
-	console.log(`Game state: ${newState}`);
+	console.log(`${newState}`);
 	switch (newState) {
 		case State.DEMO:
 			modal.hide();
@@ -26,7 +51,7 @@ function setState(newState) {
 			pauseButton.classList.remove("hidden");
 			clickBlocker.classList.add("hidden");
 			bubblePause.remove();
-			bubbler.start(bubbleDelayMs);
+			bubbler.start(getBubbleDelay());
 			break;
 		case State.PAUSED:
 			modal.show("Paused", [ModalWindow.RESTART, ModalWindow.QUIT]);
@@ -44,7 +69,10 @@ function setState(newState) {
 			bubbler.stop();
 			break;
 		case State.LEVEL_UP:
-			level++;
+			currentLevel++;
+			setHealth(100);
+			loadLevel();
+			setState(State.PLAYING);
 			break;
 		case State.GAME_OVER:
 			clickBlocker.classList.remove("hidden");
@@ -53,7 +81,10 @@ function setState(newState) {
 			bubbler.stop();
 			break;
 		case State.RESTART:
-			restartGame();
+			setScore(0);
+			setHealth(100);
+			loadLevel();
+			setState(State.PLAYING);
 			break;
 		default:
 			console.log(`Error: invalid state ${newState} `);
@@ -107,9 +138,10 @@ class ModalWindow {
 class Bubbler {
 	constructor(container, text) {
 		this.container = container;
-		this.currentWord = 0;
+		this.floatAnimationSecs =
+		playableHeight / getBubbleSpeed();
 		this.words = this.stripPunctuation(text).split(/\s/);
-		this.bubbles = [];
+		this.clear();
 	}
 
 	stop() {
@@ -119,19 +151,11 @@ class Bubbler {
 	start(delay) {
 		this.stop();
 		this.timer = setInterval(() => {
-			while (
-				!this.words[this.currentWord] &&
-				this.currentWord < this.words.length
-			) {
-				this.currentWord++;
+			while (!this.words[0] && this.words.length) {
+				this.words.shift();
 			}
-			if (this.words[this.currentWord]) {
-				this.renderBubble(this.words[this.currentWord]);
-				this.currentWord++;
-				if (this.currentWord >= this.words.length) {
-					this.stop();
-					setState(State.LEVEL_COMPLETE);
-				}
+			if (this.words.length) {
+				this.renderBubble(this.words.shift());
 			}
 		}, delay);
 	}
@@ -142,35 +166,43 @@ class Bubbler {
 	}
 
 	clear() {
-		for (const bubble of this.bubbles) {
-			bubble.remove();
+		while (this.container.firstChild) {
+			this.container.removeChild(this.container.firstChild);
 		}
-		this.bubbles = [];
 	}
 
-	scoreBubble({ currentTarget }) {
-		let points = maxBubbleScore - currentTarget.innerText.length + 1;
+	removeBubble(target) {
+		target.remove();
+		if (this.container.childElementCount === 0 && this.words.length === 0) {
+			this.stop();
+			setState(State.LEVEL_COMPLETE);
+		}
+	}
+
+	poppingAnimation(target) {
+		target.addEventListener("transitionend", this.removeBubble(target));
+		target.classList.add("paused", "popped");
+	}
+
+	bubbleScored = ({ currentTarget }) => {
+		let points = getBubblePoints() - currentTarget.innerText.length + 1;
 		points = points > 0 ? points : 1;
-		points *= floatPxPerSec;
-		console.log(`Popped "${currentTarget.innerText}": ${points} points`);
+		points *= getBubbleSpeed();
 		setScore(score + points);
 		sounds.play(Sound.POP);
-		
-		currentTarget.addEventListener("transitionend", currentTarget.remove);
-		currentTarget.classList.add("paused", "popped");
-	}
-	
-	removeBubble({ currentTarget }) {
-		let newHealth = health - bubbleDamage;
+		this.poppingAnimation(currentTarget);
+	};
+
+	bubbleEscaped = ({ currentTarget }) => {
+		let newHealth = health - getBubbleDamage();
 		if (newHealth <= 0) {
 			newHealth = 0;
 			setState(State.GAME_OVER);
 		}
 		setHealth(newHealth);
 		sounds.play(Sound.MISS);
-		currentTarget.addEventListener("transitionend", currentTarget.remove);
-		currentTarget.classList.add("paused", "popped");
-	}
+		this.poppingAnimation(currentTarget);
+	};
 
 	renderBubble(text) {
 		let bubble = document.createElement("div");
@@ -181,7 +213,6 @@ class Bubbler {
 		bubble.setAttribute("style", `top: ${bubbleStartY}px;`);
 		bubble.append(textSpan);
 		this.container.append(bubble);
-		this.bubbles.push(bubble);
 
 		const bubbleDiameter = textSpan.clientWidth + bubblePadding;
 		const containerWidth = this.container.clientWidth;
@@ -189,7 +220,7 @@ class Bubbler {
 		const randomX = Math.random() * maxX;
 		const bubbleAnimationStyles = `
 			animation-name: rise;
-			animation-duration: ${floatTransitionSecs}s;
+			animation-duration: ${this.floatAnimationSecs}s;
 			animation-timing-function: linear;
 			width: ${bubbleDiameter}px;
 			height: ${bubbleDiameter}px; 
@@ -197,8 +228,8 @@ class Bubbler {
 
 		bubble.setAttribute("style", bubbleAnimationStyles);
 
-		bubble.addEventListener("animationend", this.removeBubble);
-		bubble.addEventListener("mousedown", this.scoreBubble);
+		bubble.addEventListener("animationend", this.bubbleEscaped);
+		bubble.addEventListener("mousedown", this.bubbleScored);
 	}
 }
 
@@ -213,25 +244,12 @@ function setScore(newScore) {
 }
 
 function loadLevel() {
+	console.log(`Bubble Settings: [delay: ${getBubbleDelay()}, speed: ${getBubbleSpeed()}, damage: ${getBubbleDamage()}, points: ${getBubblePoints()}]`);
 	if (bubbler) {
 		bubbler.stop();
 		bubbler.clear();
 	}
-	bubbler = new Bubbler(playableArea, lyrics);
-}
-
-function restartGame() {
-	setScore(0);
-	setHealth(100);
-	loadLevel(1);
-	setState(State.PLAYING);
-}
-
-function startGame() {
-	setScore(0);
-	setHealth(100);
-	loadLevel(1);
-	setState(State.DEMO);
+	bubbler = new Bubbler(playableArea, getLevelWords());
 }
 
 
@@ -251,10 +269,9 @@ const scoreElement = document.getElementById("score");
 const modalElement = document.getElementById("modal");
 const clickBlocker = playableArea.querySelector(".click-blocker");
 const playableHeight = playableArea.clientHeight;
-const floatTransitionSecs = playableHeight / floatPxPerSec;
 const bubbleStartY = playableHeight;
 const modal = new ModalWindow(modalElement);
-const sounds = new SoundBank;
+const sounds = new SoundBank();
 const bubblePause = document.createElement("style");
 
 bubblePause.setAttribute("type", "text/css");
@@ -269,6 +286,7 @@ startButton.addEventListener("click", () => setState(State.PLAYING));
 playButton.addEventListener("click", () => setState(State.PLAYING));
 pauseButton.addEventListener("click", () => setState(State.PAUSED));
 
+setState(State.DEMO);
 setScore(0);
 setHealth(100);
-startGame();
+loadLevel();
