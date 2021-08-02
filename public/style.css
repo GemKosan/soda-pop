@@ -25,12 +25,11 @@ img#soda {
 	height: 710px;
 	position: absolute;
 	top: -33px;
+	filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.5));
 }
 
-#buttons {
-	bottom: 0;
-	position: absolute;
-	right: -20px;
+#buttons button {
+	box-shadow: 0 5px 10px rgb(0 0 0 / 85%);
 }
 
 #logo {
@@ -121,25 +120,21 @@ button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: #7df9ff;
-	width: 130px;
-	height: 54px;
-	border: solid 1px gray;
+	background-color: #ff00dd;
+	width: 80px;
+	height: 36px;
+	border: solid 1px black;
 	border-radius: 10px;
-	box-shadow: 0 3px 2px rgba(0, 0, 0, 0.5);
+	filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.5));
 	cursor: pointer;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 20px;
-	font-weight: bold;
+	font-size: 18px;
 }
 
-.button-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	height: 100%;
-	margin-bottom: 20px;
+#controls {
+	position: absolute;
+	right: -15px;
+	bottom: 10px;
 }
 
 #play-again-btn {
@@ -148,22 +143,6 @@ button {
 
 #next-level-btn {
 	display: none;
-}
-
-.title {
-	font-size: 2.5em;
-	text-align: center;
-	text-transform: uppercase;
-}
-
-.button:hover {
-	background-color: #00ffff;
-}
-
-.button:active {
-	background-color: #00ffff;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.75);
-	transform: translateY(2px);
 }
 
 .bubble {
@@ -204,15 +183,31 @@ button {
 
 .modal {
 	position: absolute;
-	display: flex;
-	flex-direction: column;
 	z-index: 99;
-	width: 276px;
-	height: 210px;
+	width: 150px;
+	padding: 15px;
 	border: solid 2px black;
 	border-radius: 10px;
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.85);
+	filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.85));
 	background-color: white;
+}
+
+.modal .title {
+	margin: 0 15px;
+	font-size: 2em;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.button-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.button-container button {
+	margin-top: 6px;
 }
 
 .hidden {
