@@ -5,7 +5,7 @@ import SoundBank, { Sound } from "./soundBank.js";
 let currentLevel = 0;
 const levels = ["Cola", "Lemon Lime", "Cherry Cola"];
 
-const bubbleStartDelay = 1000;
+const levelStartDelay = 1500;
 const baseBubbleDelayMs = 600;
 const bubbleDelayStep = 25;
 const baseBubbleSpeed = 60;
@@ -43,6 +43,7 @@ function getLevelWords(level) {
 }
 
 function setState(newState) {
+	console.log(newState);
 	state = newState;
 	switch (newState) {
 		case State.DEMO:
@@ -187,15 +188,11 @@ class Bubbler {
 	start(delay) {
 		this.stop(); // stop any existing timers
 		setTimeout(() => {
+			this.render();
 			this.timer = setInterval(() => {
-				while (!this.words[0] && this.words.length) {
-					this.words.shift();
-				}
-				if (this.words.length) {
-					this.renderBubble(this.words.shift());
-				}
+				this.render();
 			}, delay);
-		}, bubbleStartDelay);
+		}, levelStartDelay);
 	}
 
 	stripPunctuation(text) {
@@ -254,6 +251,15 @@ class Bubbler {
 			setHealth(newHealth);
 		}
 	};
+
+	render() {
+		while (!this.words[0] && this.words.length) {
+			this.words.shift();
+		}
+		if (this.words.length) {
+			this.renderBubble(this.words.shift());
+		}
+	}
 
 	renderBubble(text) {
 		let bubble = document.createElement("div");
