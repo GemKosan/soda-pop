@@ -11,7 +11,6 @@ const baseBubbleSpeed = 60
 const bubbleSpeedStep = 20
 const baseBubbleDamage = 10
 const baseBubbleScore = 10
-const bubblePadding = 15
 
 function indexCurrentLevel() {
 	return (currentLevel % levels.length)
@@ -208,15 +207,11 @@ class Bubbler {
 
 	renderBubble(text) {
 		let bubble = document.createElement("div")
-		let textSpan = document.createElement("span")
-		textSpan.className = "bubble-text"
-		textSpan.innerText = text
+		bubble.innerText = text
 		bubble.className = "bubble"
-		bubble.setAttribute("style", `top: ${bubbleStartY}px;`)
-		bubble.append(textSpan)
+		bubble.setAttribute("style", `top: ${bubbleStartY}px;`)		
 		this.container.append(bubble)
-
-		const bubbleDiameter = textSpan.clientWidth + bubblePadding
+		const bubbleDiameter = bubble.clientWidth
 		const containerWidth = this.container.clientWidth
 		const maxX = containerWidth - bubbleDiameter
 		const randomX = Math.random() * maxX
