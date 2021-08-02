@@ -1,17 +1,17 @@
-import lyrics from "./lyrics.js";
+import lyrics from "./lyrics_testing.js";
 import * as State from "./state.js";
 import SoundBank, { Sound } from "./soundBank.js";
 
 let currentLevel = 0;
-const levels = ["Cola", "Lemon Lime", "Cherry Cola"];
+const levels = ["Cola", "Lemon Lime", "Grape Soda"];
 
-const levelStartDelay = 1500;
-const baseBubbleDelayMs = 600;
+const baseBubbleDelayMs = 1000;
 const bubbleDelayStep = 25;
-const baseBubbleSpeed = 60;
+const baseBubbleSpeed = 150;
 const bubbleSpeedStep = 20;
 const baseBubbleDamage = 10;
 const baseBubbleScore = 10;
+const levelStartDelay = 1500;
 
 function randomLevel() {
 	const level = Math.floor(Math.random() * levels.length);
@@ -177,17 +177,19 @@ class Bubbler {
 	constructor(container, text) {
 		this.container = container;
 		this.floatAnimationSecs = playableHeight / getBubbleSpeed();
-		this.words = this.stripPunctuation(text).split(/\s/);
+		this.words = this.splitText(text);
 		this.clear();
 	}
 
 	stop() {
+		clearInterval(this.startDelay);
 		clearInterval(this.timer);
 	}
 
 	start(delay) {
-		this.stop(); // stop any existing timers
-		setTimeout(() => {
+		this.stop();
+		this.startDelay = setTimeout(() => {
+			this.stop();
 			this.render();
 			this.timer = setInterval(() => {
 				this.render();
@@ -195,9 +197,15 @@ class Bubbler {
 		}, levelStartDelay);
 	}
 
-	stripPunctuation(text) {
-		var punctuation = /[^a-zA-Z'\-\s+]/g;
-		return text.replace(punctuation, "");
+	splitText(text) {
+		const punctuation = /[^a-zA-Z'\-\s+]/g;
+		const words = [];
+		for (let word of text.replace(punctuation, "").split(/\s/)) {
+			if(word) {
+				words.push(word);
+			}
+		}
+		return words;
 	}
 
 	clear() {
@@ -244,18 +252,15 @@ class Bubbler {
 		if (state === State.PLAYING) {
 			sounds.play(Sound.POP);
 			let newHealth = health - getBubbleDamage();
+			setHealth(newHealth);
 			if (newHealth <= 0) {
 				newHealth = 0;
 				setState(State.GAME_OVER);
 			}
-			setHealth(newHealth);
 		}
 	};
 
 	render() {
-		while (!this.words[0] && this.words.length) {
-			this.words.shift();
-		}
 		if (this.words.length) {
 			this.renderBubble(this.words.shift());
 		}
