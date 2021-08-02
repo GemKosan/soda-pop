@@ -180,7 +180,7 @@ button {
 	border-radius: 50%;
 	background: white;
 	opacity: 92%;
-	transition: transform 150ms linear;
+	transition: transform 200ms linear;
 }
 
 .popped {

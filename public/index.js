@@ -178,7 +178,7 @@ class Bubbler {
 	}
 
 	poppingAnimation(target) {
-		target.addEventListener("transitionend", this.removeBubble(target))
+		target.addEventListener("transitionend", () => this.removeBubble(target))
 		target.classList.add("paused", "popped")
 	}
 
