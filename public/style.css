@@ -129,6 +129,7 @@ button {
 	cursor: pointer;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 18px;
+	font-weight: bold;
 }
 
 #controls {
@@ -159,20 +160,15 @@ button {
 	border-radius: 50%;
 	background: white;
 	opacity: 92%;
-	transition: transform 200ms linear;
+	transition: transform 100ms linear;
 }
 
 .popped {
 	transform: scale(0.15);
 }
 
-@keyframes rise {
-	from {
-		top: 400px;
-	}
-	to {
-		top: 0px;
-	}
+.blink {
+	animation: blink 3s linear infinite;
 }
 
 .bubble-text {
@@ -216,4 +212,25 @@ button {
 
 .paused {
 	animation-play-state: paused;
+}
+
+@keyframes blink{
+	0%{
+		opacity: 1;
+	}
+	50%{
+		opacity: 0;
+	}
+	100%{
+		opacity: 1;
+	}
+}
+
+@keyframes rise {
+	from {
+		top: 400px;
+	}
+	to {
+		top: 0px;
+	}
 }
