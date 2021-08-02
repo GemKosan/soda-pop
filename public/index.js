@@ -14,7 +14,7 @@ const baseBubbleScore = 10
 const bubblePadding = 15
 
 function indexCurrentLevel() {
-	return (currentLevel % levels.length);
+	return (currentLevel % levels.length)
 }
 
 function getBubbleDelay() {
@@ -46,14 +46,12 @@ function setState(newState) {
 			startButton.classList.remove("hidden")
 			playButton.classList.add("hidden")
 			pauseButton.classList.add("hidden")
-			clickBlocker.classList.remove("hidden")
 			break
 		case State.PLAYING:
 			modal.hide()
 			startButton.classList.add("hidden")
 			playButton.classList.add("hidden")
 			pauseButton.classList.remove("hidden")
-			clickBlocker.classList.add("hidden")
 			playableArea.classList.remove("paused")
 			bubbler.start(getBubbleDelay())
 			break
@@ -61,14 +59,12 @@ function setState(newState) {
 			modal.show("Paused", [ModalWindow.RESTART, ModalWindow.QUIT])
 			playButton.classList.remove("hidden")
 			pauseButton.classList.add("hidden")
-			clickBlocker.classList.remove("hidden")
 			playableArea.classList.add("paused")
 			bubbler.stop()
 			break
 		case State.LEVEL_COMPLETE:
 			modal.show("Level Complete!", [ModalWindow.NEXT_LEVEL])
 			sounds.play(Sound.COMPLETE)
-			clickBlocker.classList.remove("hidden")
 			playableArea.classList.add("paused")
 			bubbler.stop()
 			break
@@ -79,7 +75,6 @@ function setState(newState) {
 			setState(State.PLAYING)
 			break
 		case State.GAME_OVER:
-			clickBlocker.classList.remove("hidden")
 			modal.show("Game Over", [ModalWindow.PLAY_AGAIN, ModalWindow.QUIT])
 			playableArea.classList.add("paused")
 			bubbler.stop()
@@ -189,6 +184,9 @@ class Bubbler {
 	}
 
 	bubbleScored = ({ currentTarget }) => {
+		if (state !== State.PLAYING) {
+			return;
+		}
 		let points = getBubblePoints() - currentTarget.innerText.length + 1
 		points = points > 0 ? points : 1
 		points *= getBubbleSpeed()
@@ -244,7 +242,7 @@ function setHealth(newHealth) {
 
 function setScore(newScore) {
 	score = newScore
-	scoreElement.innerText = String(newScore).padStart(15, "0")
+	scoreElement.innerText = String(newScore).padStart(9, "0")
 }
 
 function loadLevel() {
@@ -273,7 +271,6 @@ const healthElement = document.getElementById("health")
 const scoreElement = document.getElementById("score")
 const modalElement = document.getElementById("modal")
 const levelNameElement = document.getElementById("level-name")
-const clickBlocker = playableArea.querySelector(".click-blocker")
 const allButtons = document.querySelectorAll("button")
 const playableHeight = playableArea.clientHeight
 const bubbleStartY = playableHeight

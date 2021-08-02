@@ -1,43 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Soda POP!</title>
-    <script src="https://use.fontawesome.com/c94bba74ed.js"></script>
-    <link rel="stylesheet" type="text/css" href="/style.css">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
-</head>
-<body>
-  <div id="modal" class="modal hidden">
-    <div><h1 class="title">Game Paused</h1></div>
-    <div class="button-container">
-      <button class="restart-btn hidden">Restart</button>
-      <button class="play-again-btn hidden">Play Again</button>
-      <button class="next-level-btn hidden">Next Level</button>
-      <button class="quit-btn hidden">Quit</button>
-    </div>
-  </div>
-  <div id="game">
-    <div id="header" class="row">
-      <div class="row">
-        <img id="logo" alt="Soda Pop!" src="resources/logo.png" />
-        <div class="right-col">
-          <button id="start-btn">Start</button>
-          <button id="pause-btn" class="hidden" aria-label="Pause"><i class="fa fa-pause"></i></button>
-          <button id="play-btn" class="hidden" aria-label="Play"><i class="fa fa-play"></i></button>
-        </div>
-      </div>
-    </div>
-    <div id="main">
-      <div id="score">000000000000000</div>
-      <div  class="progress-bar">
-        <div id="health"></div>
-      </div>
-      <div id="playable-area">
-        <div class="click-blocker hidden"></div>
-      </div>
-      <h2 id="level-name">Level Name</h2>
-    </div>
-  </div>
-  <script type="module" src="index.js"></script>
-</body>
+	<head>
+		<title>Soda POP!</title>
+		<script src="https://use.fontawesome.com/c94bba74ed.js"></script>
+		<link rel="stylesheet" type="text/css" href="/style.css" />
+		<meta
+			name="viewport"
+			content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no"
+		/>
+	</head>
+	<body>
+		<div id="game">
+      <button id="start-btn">Start</button>
+      <button id="pause-btn" class="hidden" aria-label="Pause"><i class="fa fa-pause"></i></button>
+      <button id="play-btn" class="hidden" aria-label="Play"><i class="fa fa-play"></i></button>
+			<h2 id="score">000000000</h2>
+			<div id="health-bar">
+				<div id="health"></div>
+			</div>
+			<div id="playable-area"></div>
+			<h2 id="level-name">Level Name</h2>
+		</div>
+		<div id="modal" class="modal hidden">
+			<div><h1 class="title">Game Paused</h1></div>
+			<div class="button-container">
+				<button class="restart-btn hidden">Restart</button>
+				<button class="play-again-btn hidden">Play Again</button>
+				<button class="next-level-btn hidden">Next Level</button>
+				<button class="quit-btn hidden">Quit</button>
+			</div>
+		</div>
+		<script type="module" src="index.js"></script>
+	</body>
 </html>

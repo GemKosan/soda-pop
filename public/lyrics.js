@@ -8,7 +8,7 @@ We're no strangers to love
 `,
 
 `
-She was more like a beauty queen from a movie scene
+She was more like a beauty queen
 `
 ];
 

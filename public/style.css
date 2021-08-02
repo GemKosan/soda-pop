@@ -11,6 +11,10 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	background-color: white;
+	background-image: url("resources/CheckerBoardSeemlessPattern.svg");
+	background-size: 370px;
+	background-position: center 0px;
 }
 
 div {
@@ -18,96 +22,76 @@ div {
 }
 
 #game {
+	position: relative;
 	display: flex;
 	flex-direction: column;
-	height: 568px;
-	width: 320px;
-	margin: 0 auto;
-	box-sizing: border-box;
-	border: solid 2px black;
-	border-radius: 10px;
-	background-color: magenta;
-	padding: 15px 20px 10px 20px;
-}
-
-#main {
-	display: flex;
-	flex-direction: column;
-	flex: 1 1 auto;
-	justify-content: space-between;
 	align-items: center;
+	width: 320px;
+	height: 667px;
 	padding: 0 20px;
+	box-sizing: border-box;
+	border-radius: 10px;
+	background-image: url("resources/soda.svg");
+	background-repeat: no-repeat;
+	background-size: 570px;
+	background-position: center -35px;
 }
 
 #playable-area {
-	position: relative;
-	width: 100%;
-	height: 330px;
+	position: absolute;
+	top: 198px;
+	width: 210px;
+	height: 420px;
+	margin: 0 auto;
 	border-radius: 10px;
 	overflow: hidden;
+}
+
+/* #playable-area::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 50%;
 	background: darkblue;
-}
+} */
 
-.click-blocker {
-  width: 100%;
-  height: 100%;
-  display: block;
-  position: relative;
-  z-index: 10;
-}
-
-#logo {
-	border-radius: 10px;
-	max-width: 154px;
+#click-blocker {
+	background-color: orange;
 	position: relative;
-	left: -10px;
-	top: 0px;
-}
-
-#header {
-	display: flex;
-	flex: 0 0 auto;
-	flex-direction: column;
-	align-items: stretch;
-}
-
-#header .row {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
-
-#header .right-col {
-	display: flex;
-	flex: 1 0 auto;
-	flex-direction: column;
-	height: 120px;
-	box-sizing: border-box;
-	justify-content: space-between;
-	align-items: flex-end;
-}
-
-
-#level-name {
-	margin: 0 15px;
-	font-size: 20px;
-	font-weight: bold;
+	display: block;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
 }
 
 #score {
+	position: absolute;
+	top: 80px;
+	margin: 0;
+	padding: 0 10px;
 	font-size: 26px;
-	line-height: 20px; /* align text to baseline */
 	font-weight: bolder;
+	text-align: center;
+	color: #00BFFF;
+	background-color: white;
+	border: 1px solid black;
+	border-radius: 10px;
+	box-shadow: 0 3px 2px rgba(0,0,0,0.5);
 }
 
-.progress-bar {
-	position: relative;
-	width: 100%;
+#health-bar {
+	position: absolute;
+	top: 135px;
+  width: 150px;
 	height: 10px;
 	border: solid 1px black;
 	border-radius: 10px;
 	overflow: hidden;
 	background-color: black;
+	box-shadow: 0 3px 2px rgba(0,0,0,0.5);
 }
 
 #health {
@@ -119,6 +103,20 @@ div {
 	background-color: red;
 }
 
+#level-name {
+	position: absolute;
+	top: 634px;
+	margin: 0;
+	padding: 0 10px;
+	font-size: 24px;
+	text-align: center;
+	color: #ff00dd;
+	background-color: white;
+	border: solid 1px black;
+	border-radius: 10px;
+	box-shadow: 0 3px 2px rgba(0,0,0,0.5);
+}
+
 button {
 	display: flex;
 	justify-content: center;
@@ -128,7 +126,7 @@ button {
 	height: 54px;
 	border: solid 1px gray;
 	border-radius: 10px;
-	box-shadow: 0 3px 2px #999;
+	box-shadow: 0 3px 2px rgba(0,0,0,0.5);
 	cursor: pointer;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 20px;
@@ -164,7 +162,7 @@ button {
 
 .button:active {
 	background-color: #00ffff;
-	box-shadow: 0 1px 2px #666;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.75);
 	transform: translateY(2px);
 }
 
@@ -180,11 +178,11 @@ button {
 	border-radius: 50%;
 	background: white;
 	opacity: 95%;
-  transition: transform 150ms linear;
+	transition: transform 150ms linear;
 }
 
 .popped {
-  transform: scale(0.15);
+	transform: scale(0.15);
 }
 
 @keyframes rise {
@@ -211,7 +209,7 @@ button {
 	height: 210px;
 	border: solid 2px black;
 	border-radius: 10px;
-	box-shadow: 0 5px 10px black;
+	box-shadow: 0 5px 10px rgba(0,0,0,0.85);
 	background-color: white;
 }
 
@@ -220,5 +218,5 @@ button {
 }
 
 .paused {
-  animation-play-state: paused;
+	animation-play-state: paused;
 }
