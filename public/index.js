@@ -184,7 +184,7 @@ class Bubbler {
 
 	bubbleScored = ({ currentTarget }) => {
 		if (state !== State.PLAYING) {
-			return;
+			return
 		}
 		let points = getBubblePoints() - currentTarget.innerText.length + 1
 		points = points > 0 ? points : 1
