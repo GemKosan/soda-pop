@@ -40,10 +40,7 @@ Who will dance on the floor in the round
 
 Billie Jean is not my lover
 She's just a girl who claims that I am the one
-But the kid is not my son, hoo!
-She says I am the one
 But the kid is not my son
-Hoo!
 `
 ];
 

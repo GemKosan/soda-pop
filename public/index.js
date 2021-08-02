@@ -1,4 +1,4 @@
-import lyrics from "./lyrics_testing.js";
+import lyrics from "./lyrics.js";
 import * as State from "./state.js";
 import SoundBank, { Sound } from "./soundBank.js";
 
