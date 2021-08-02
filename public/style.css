@@ -121,7 +121,7 @@ button {
 	justify-content: center;
 	align-items: center;
 	background-color: #ff00dd;
-	width: 80px;
+	min-width: 80px;
 	height: 36px;
 	border: solid 1px black;
 	border-radius: 10px;
