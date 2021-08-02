@@ -6,9 +6,9 @@ let currentLevel = 0;
 const levels = ["Cola", "Lemon Lime", "Grape Soda"];
 
 const baseBubbleDelayMs = 1000;
-const bubbleDelayStep = 25;
+const bubbleDelayStep = 200;
 const baseBubbleSpeed = 150;
-const bubbleSpeedStep = 20;
+const bubbleSpeedStep = 50;
 const baseBubbleDamage = 10;
 const baseBubbleScore = 10;
 const levelStartDelay = 1500;
