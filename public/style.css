@@ -14,7 +14,7 @@ body {
 	background-color: white;
 	background-image: url("resources/CheckerBoardSeemlessPattern.svg");
 	background-size: 370px;
-	background-position: center 0px;
+	background-position: center center;
 }
 
 div {
@@ -25,6 +25,20 @@ img#soda {
 	height: 710px;
 	position: absolute;
 	top: -33px;
+}
+
+#buttons {
+	bottom: 0;
+	position: absolute;
+	right: -20px;
+}
+
+#logo {
+	height: 100px;
+	position: absolute;
+	left: 30px;
+	top: 4px;
+	filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.5));
 }
 
 #game {
@@ -51,29 +65,31 @@ img#soda {
 
 #score {
 	position: absolute;
-	top: 80px;
+	top: 98px;
+	z-index: 15;
 	margin: 0;
 	padding: 0 10px;
-	font-size: 26px;
+	font-size: 24px;
 	font-weight: bolder;
 	text-align: center;
-	color: #00BFFF;
+	color: #00bfff;
 	background-color: white;
 	border: 1px solid black;
 	border-radius: 10px;
-	box-shadow: 0 3px 2px rgba(0,0,0,0.5);
+	box-shadow: 0 3px 2px rgba(0, 0, 0, 0.5);
 }
 
 #health-bar {
 	position: absolute;
+	z-index: 15;
 	top: 135px;
-  width: 150px;
+	width: 150px;
 	height: 10px;
 	border: solid 1px black;
 	border-radius: 10px;
 	overflow: hidden;
 	background-color: black;
-	box-shadow: 0 3px 2px rgba(0,0,0,0.5);
+	box-shadow: 0 3px 2px rgba(0, 0, 0, 0.5);
 }
 
 #health {
@@ -96,7 +112,7 @@ img#soda {
 	background-color: white;
 	border: solid 1px black;
 	border-radius: 10px;
-	box-shadow: 0 3px 2px rgba(0,0,0,0.5);
+	box-shadow: 0 3px 2px rgba(0, 0, 0, 0.5);
 }
 
 button {
@@ -110,7 +126,7 @@ button {
 	height: 54px;
 	border: solid 1px gray;
 	border-radius: 10px;
-	box-shadow: 0 3px 2px rgba(0,0,0,0.5);
+	box-shadow: 0 3px 2px rgba(0, 0, 0, 0.5);
 	cursor: pointer;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 20px;
@@ -146,7 +162,7 @@ button {
 
 .button:active {
 	background-color: #00ffff;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.75);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.75);
 	transform: translateY(2px);
 }
 
@@ -195,7 +211,7 @@ button {
 	height: 210px;
 	border: solid 2px black;
 	border-radius: 10px;
-	box-shadow: 0 5px 10px rgba(0,0,0,0.85);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.85);
 	background-color: white;
 }
 
