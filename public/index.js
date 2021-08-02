@@ -5,17 +5,16 @@ import SoundBank, { Sound } from "./soundBank.js";
 let currentLevel = 0;
 const levels = ["Cola", "Lemon Lime", "Cherry Cola"];
 
+const bubbleStartDelay = 1000;
 const baseBubbleDelayMs = 600;
 const bubbleDelayStep = 25;
 const baseBubbleSpeed = 60;
 const bubbleSpeedStep = 20;
 const baseBubbleDamage = 10;
 const baseBubbleScore = 10;
-const bubbleStartDelay = 1000;
 
 function randomLevel() {
 	const level = Math.floor(Math.random() * levels.length);
-	console.log(level);
 	return level;
 }
 
@@ -45,39 +44,31 @@ function getLevelWords(level) {
 
 function setState(newState) {
 	state = newState;
-	console.log(`${newState}`);
 	switch (newState) {
 		case State.DEMO:
 			modal.show("Press Start", [], true);
-			startButton.classList.remove("hidden");
-			playButton.classList.add("hidden");
-			pauseButton.classList.add("hidden");
+			controls.show(GameControls.START_BUTTON);
 			playableArea.classList.remove("paused");
 			loadLevel(randomLevel());
 			bubbler.start(getBubbleDelay());
 			break;
 		case State.PLAYING:
 			modal.hide();
-			startButton.classList.add("hidden");
-			playButton.classList.add("hidden");
-			pauseButton.classList.remove("hidden");
+			controls.show(GameControls.PAUSE_BUTTON);
 			playableArea.classList.remove("paused");
 			scoreElement.classList.remove("blink");
 			bubbler.start(getBubbleDelay());
 			break;
 		case State.PAUSED:
 			modal.show("Paused", [ModalWindow.RESTART, ModalWindow.QUIT]);
-			playButton.classList.remove("hidden");
-			pauseButton.classList.add("hidden");
+			controls.show(GameControls.PLAY_BUTTON);
 			playableArea.classList.add("paused");
 			bubbler.stop();
 			break;
 		case State.LEVEL_COMPLETE:
 			modal.show("Level Complete!", [ModalWindow.NEXT_LEVEL]);
 			sounds.play(Sound.COMPLETE);
-			startButton.classList.add("hidden");
-			playButton.classList.add("hidden");
-			pauseButton.classList.add("hidden");
+			controls.hide();
 			playableArea.classList.add("paused");
 			bubbler.stop();
 			break;
@@ -89,9 +80,7 @@ function setState(newState) {
 			break;
 		case State.GAME_OVER:
 			modal.show("Game Over", [ModalWindow.PLAY_AGAIN, ModalWindow.QUIT]);
-			startButton.classList.add("hidden");
-			playButton.classList.add("hidden");
-			pauseButton.classList.add("hidden");
+			controls.hide();
 			playableArea.classList.add("paused");
 			bubbler.stop();
 			break;
@@ -103,6 +92,32 @@ function setState(newState) {
 			break;
 		default:
 			console.log(`Error: invalid state ${newState} `);
+	}
+}
+
+class GameControls {
+	static START_BUTTON = "startButton";
+	static PLAY_BUTTON = "playButton";
+	static PAUSE_BUTTON = "pauseButton";
+
+	constructor() {
+		this.startButton = document.getElementById("start-btn");
+		this.playButton = document.getElementById("play-btn");
+		this.pauseButton = document.getElementById("pause-btn");
+		this.startButton.addEventListener("click", () => setState(State.RESTART));
+		this.playButton.addEventListener("click", () => setState(State.PLAYING));
+		this.pauseButton.addEventListener("click", () => setState(State.PAUSED));
+	}
+
+	show(button) {
+		this.hide();
+		this[button].classList.remove("hidden");
+	}
+
+	hide() {
+		this.startButton.classList.add("hidden");
+		this.playButton.classList.add("hidden");
+		this.pauseButton.classList.add("hidden");
 	}
 }
 
@@ -142,6 +157,7 @@ class ModalWindow {
 		for (const button of buttons) {
 			this[button].classList.remove("hidden");
 		}
+
 		if (blink) {
 			this.title.classList.add("blink");
 		} else {
@@ -169,7 +185,7 @@ class Bubbler {
 	}
 
 	start(delay) {
-		this.stop();
+		this.stop(); // stop any existing timers
 		setTimeout(() => {
 			this.timer = setInterval(() => {
 				while (!this.words[0] && this.words.length) {
@@ -214,12 +230,12 @@ class Bubbler {
 
 	bubbleScored = ({ currentTarget }) => {
 		if (state === State.PLAYING) {
+			sounds.play(Sound.POP);
+			this.poppingAnimation(currentTarget);
 			let points = getBubblePoints() - currentTarget.innerText.length + 1;
 			points = points > 0 ? points : 1;
 			points *= getBubbleSpeed();
 			setScore(score + points);
-			sounds.play(Sound.POP);
-			this.poppingAnimation(currentTarget);
 		} else if (state === State.DEMO) {
 			sounds.play(Sound.POP);
 			this.poppingAnimation(currentTarget);
@@ -228,7 +244,6 @@ class Bubbler {
 
 	bubbleEscaped = ({ currentTarget }) => {
 		this.poppingAnimation(currentTarget);
-
 		if (state === State.PLAYING) {
 			sounds.play(Sound.POP);
 			let newHealth = health - getBubbleDamage();
@@ -244,7 +259,6 @@ class Bubbler {
 		let bubble = document.createElement("div");
 		bubble.innerText = text;
 		bubble.className = "bubble";
-		bubble.setAttribute("style", `top: ${bubbleStartY}px;`);
 		this.container.append(bubble);
 		const bubbleDiameter = bubble.clientWidth;
 		const containerWidth = this.container.clientWidth;
@@ -259,7 +273,6 @@ class Bubbler {
 			left: ${randomX}px;`;
 
 		bubble.setAttribute("style", bubbleAnimationStyles);
-
 		bubble.addEventListener("animationend", this.bubbleEscaped);
 		bubble.addEventListener("mousedown", this.bubbleScored);
 	}
@@ -293,9 +306,6 @@ let score;
 let health;
 let state;
 let bubbler;
-const startButton = document.getElementById("start-btn");
-const playButton = document.getElementById("play-btn");
-const pauseButton = document.getElementById("pause-btn");
 const playableArea = document.getElementById("playable-area");
 const healthElement = document.getElementById("health");
 const scoreElement = document.getElementById("score");
@@ -303,14 +313,10 @@ const modalElement = document.getElementById("modal");
 const levelNameElement = document.getElementById("level-name");
 const allButtons = document.querySelectorAll("button");
 const playableHeight = playableArea.clientHeight;
-const bubbleStartY = playableHeight;
+const controls = new GameControls();
 const modal = new ModalWindow(modalElement);
 const sounds = new SoundBank();
 for (let button of allButtons) {
 	button.addEventListener("click", () => sounds.play(Sound.CLICK));
 }
-startButton.addEventListener("click", () => setState(State.RESTART));
-playButton.addEventListener("click", () => setState(State.PLAYING));
-pauseButton.addEventListener("click", () => setState(State.PAUSED));
-
 setState(State.DEMO);
