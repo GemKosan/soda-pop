@@ -21,6 +21,12 @@ div {
 	animation-play-state: inherit;
 }
 
+img#soda {
+	height: 710px;
+	position: absolute;
+	top: -33px;
+}
+
 #game {
 	position: relative;
 	display: flex;
@@ -31,10 +37,6 @@ div {
 	padding: 0 20px;
 	box-sizing: border-box;
 	border-radius: 10px;
-	background-image: url("resources/soda.svg");
-	background-repeat: no-repeat;
-	background-size: 570px;
-	background-position: center -35px;
 }
 
 #playable-area {
@@ -45,26 +47,6 @@ div {
 	margin: 0 auto;
 	border-radius: 10px;
 	overflow: hidden;
-}
-
-/* #playable-area::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	opacity: 50%;
-	background: darkblue;
-} */
-
-#click-blocker {
-	background-color: orange;
-	position: relative;
-	display: block;
-	width: 100%;
-	height: 100%;
-	z-index: 10;
 }
 
 #score {
@@ -118,6 +100,8 @@ div {
 }
 
 button {
+	position: relative;
+	z-index: 100;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -170,14 +154,15 @@ button {
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
 		Helvetica, Arial, "Lucida Grande", sans-serif;
 	font-size: 16px;
+	font-weight: bold;
 	position: absolute;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: solid 1px white;
+	border: solid 1px black;
 	border-radius: 50%;
 	background: white;
-	opacity: 95%;
+	opacity: 92%;
 	transition: transform 150ms linear;
 }
 
