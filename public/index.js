@@ -195,17 +195,15 @@ class Bubbler {
 
 	removeBubble(target) {
 		target.remove();
-		if (
-			this.container.childElementCount === 0 &&
-			this.words.length === 0 &&
-			health > 0
-		) {
+		if (this.container.childElementCount === 0 && this.words.length === 0) {
 			this.stop();
 			if (state === State.DEMO) {
 				setState(State.DEMO);
 				return;
 			}
-			setState(State.LEVEL_COMPLETE);
+			if (health > 0) {
+				setState(State.LEVEL_COMPLETE);
+			}
 		}
 	}
 
