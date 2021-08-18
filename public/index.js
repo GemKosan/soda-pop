@@ -12,6 +12,7 @@ const bubbleSpeedStep = 50;
 const baseBubbleDamage = 10;
 const baseBubbleScore = 10;
 const levelStartDelay = 1500;
+const bubblePadding = 5;
 
 function randomLevel() {
 	const level = Math.floor(Math.random() * levels.length);
@@ -273,7 +274,7 @@ class Bubbler {
 		this.container.append(bubble);
 		const bubbleDiameter = bubble.clientWidth;
 		const containerWidth = this.container.clientWidth;
-		const maxX = containerWidth - bubbleDiameter;
+		const maxX = containerWidth - bubbleDiameter - (2 * bubblePadding);
 		const randomX = Math.random() * maxX;
 		const bubbleAnimationStyles = `
 			animation-name: rise;
