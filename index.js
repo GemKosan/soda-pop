@@ -230,8 +230,8 @@ class Bubbler {
 	}
 
 	poppingAnimation(target) {
-		target.addEventListener("transitionend", () => this.removeBubble(target));
 		target.classList.add("paused", "popped");
+		target.addEventListener("transitionend", () => this.removeBubble(target));
 	}
 
 	bubbleScored = ({ currentTarget }) => {
@@ -253,9 +253,9 @@ class Bubbler {
 		if (state === State.PLAYING) {
 			sounds.play(Sound.POP);
 			let newHealth = health - getBubbleDamage();
+			newHealth = newHealth > 0 ? newHealth : 0;
 			setHealth(newHealth);
-			if (newHealth <= 0) {
-				newHealth = 0;
+			if (newHealth === 0) {
 				setState(State.GAME_OVER);
 			}
 		}
