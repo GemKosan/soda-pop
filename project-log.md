@@ -20,13 +20,13 @@ I started with the idea to change up the requirement for falling dots to be risi
 - [x] Mon Jul 26: Plan & schedule code tasks
 - [x] Mon Jul 26: Begin coding
 - [x] Tue Jul 27: Export project from Glitch to GitHub & work locally
-- [ ] Tue Jul 28: Complete fully-functional prototype
-- [ ] Wed Jul 28: test
-- [ ] Wed Jul 28: fix bugs
-- [ ] Thu Jul 29: fix bugs
-- [ ] Thu Jul 29: Pick fonts & color scheme
-- [ ] Fri Jul 30: polish
-- [ ] Sat Jul 31: polish
-- [ ] Sun Aug 1: polish 
-- [ ] Sun Aug 1: final testing & fixes
-- [ ] Mon Aug 2: turn in 
+- [x] Tue Jul 28: Complete fully-functional prototype
+- [x] Wed Jul 28: test
+- [x] Wed Jul 28: fix bugs
+- [x] Thu Jul 29: fix bugs
+- [x] Thu Jul 29: Pick fonts & color scheme
+- [x] Fri Jul 30: polish
+- [x] Sat Jul 31: polish
+- [x] Sun Aug 1: polish 
+- [x] Sun Aug 1: final testing & fixes
+- [x] Mon Aug 2: turn in 
