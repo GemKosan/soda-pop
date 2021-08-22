@@ -16,9 +16,6 @@ body {
 	background-image: url("resources/CheckerBoardSeemlessPattern.svg");
 	background-size: 370px;
 	background-position: center center;
-	/* don't zoom on double-tap */
-	touch-action: manipulation; 
-	touch-action: pan-y;
 }
 
 div {
