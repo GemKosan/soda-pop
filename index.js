@@ -332,4 +332,7 @@ const sounds = new SoundBank();
 for (let button of allButtons) {
 	button.addEventListener("click", () => sounds.play(Sound.CLICK));
 }
+// disable iOS zoom on double tap
+playableArea.addEventListener("click", event => {});
+
 setState(State.DEMO);
