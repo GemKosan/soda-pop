@@ -286,7 +286,8 @@ class Bubbler {
 
 		bubble.setAttribute("style", bubbleAnimationStyles);
 		bubble.addEventListener("animationend", this.bubbleEscaped);
-		bubble.addEventListener("mousedown", this.bubbleScored);
+		//bubble.addEventListener("mousedown", this.bubbleScored);
+		bubble.addEventListener("touchstart", this.bubbleScored);
 	}
 }
 
