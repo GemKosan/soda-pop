@@ -10,27 +10,36 @@ class SoundBank {
 		// multiple sounds on queue to allow concurrent playing
 		this.sounds = {
 			click: [
-				new Audio('resources/click.wav'),
-				new Audio('resources/click.wav'),
-				new Audio('resources/click.wav'),
+				new Howl({
+					src: ['resources/click.mp3', 'resources/click.ogg'],
+				}),
 			],
 			complete: [
-				new Audio('resources/complete.wav'),
+				new Howl({
+					src: ['resources/complete.mp3', 'resources/complete.ogg'],
+				}),
 			],
 			miss: [
-				new Audio('resources/missed.wav'),
-				new Audio('resources/missed.wav'),
-				new Audio('resources/missed.wav'),
+				new Howl({
+					src: ['resources/missed.mp3', 'resources/missed.ogg'],
+				}),
 			],
 			pop: [
-				new Audio('resources/pop1.wav'),
-				new Audio('resources/pop2.wav'),
-				new Audio('resources/pop3.wav'),
+				new Howl({
+					src: ['resources/pop1.mp3', 'resources/pop1.ogg'],
+				}),
+				new Howl({
+					src: ['resources/pop2.mp3', 'resources/pop2.ogg'],
+				}),
+				new Howl({
+					src: ['resources/pop3.mp3', 'resources/pop3.ogg'],
+				}),
 			],
 		}
 	}
 
 	play(key) {
+		console.log("PLAYING " + key);
 		const variations = this.sounds[key];
 		if (!variations) {
 			return;
