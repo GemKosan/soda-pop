@@ -234,7 +234,9 @@ class Bubbler {
 		target.addEventListener("transitionend", () => this.removeBubble(target));
 	}
 
-	bubbleScored = ({ currentTarget }) => {
+	bubbleScored = (e) => {
+		e.preventDefault();
+		let currentTarget = e.currentTarget;
 		if (state === State.PLAYING) {
 			sounds.play(Sound.POP);
 			this.poppingAnimation(currentTarget);
