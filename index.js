@@ -3,7 +3,7 @@ import * as State from "./state.js";
 import SoundBank, { Sound } from "./soundBank.js";
 
 let currentLevel = 0;
-const levels = ["Cola", "Lemon Lime", "Grape Soda"];
+const levels = ["Cola", "Lemon Lime", "Grape Soda", "Cream Soda", "Cherry Cola"];
 
 const baseBubbleDelayMs = 1000;
 const bubbleDelayStep = 200;
@@ -303,10 +303,17 @@ function setScore(newScore) {
 	scoreElement.innerText = String(newScore).padStart(9, "0");
 }
 
+function loadSodaImage(level) {
+	if (sodaImageElement) {
+		sodaImageElement.setAttribute("src", `resources/${level}.svg`);
+	}
+}
+
 function loadLevel(level) {
 	console.log(
 		`Level ${level} bubble Settings: [delay: ${getBubbleDelay()}, speed: ${getBubbleSpeed()}, damage: ${getBubbleDamage()}, points: ${getBubblePoints()}]`
 	);
+	loadSodaImage(levels[level]);
 	levelNameElement.innerText = levels[level];
 	if (bubbler) {
 		bubbler.stop();
@@ -326,6 +333,7 @@ const healthElement = document.getElementById("health");
 const scoreElement = document.getElementById("score");
 const modalElement = document.getElementById("modal");
 const levelNameElement = document.getElementById("level-name");
+const sodaImageElement = document.getElementById("soda");
 const allButtons = document.querySelectorAll("button");
 const playableHeight = playableArea.clientHeight;
 const controls = new GameControls();
