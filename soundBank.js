@@ -39,7 +39,6 @@ class SoundBank {
 	}
 
 	play(key) {
-		console.log("PLAYING " + key);
 		const variations = this.sounds[key];
 		if (!variations) {
 			return;
