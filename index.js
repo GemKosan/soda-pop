@@ -87,6 +87,7 @@ function setState(newState) {
 			bubbler.stop();
 			break;
 		case State.RESTART:
+			currentLevel = 0;
 			setScore(0);
 			setHealth(100);
 			loadLevel(indexCurrentLevel());
