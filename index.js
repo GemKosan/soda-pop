@@ -24,7 +24,7 @@ function indexCurrentLevel() {
 }
 
 function getBubbleDelay() {
-	return baseBubbleDelayMs - currentLevel * bubbleDelayStep;
+	return baseBubbleDelayMs;
 }
 
 function getBubbleSpeed() {
